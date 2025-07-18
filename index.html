@@ -152,59 +152,10 @@
             </div>
         </div>
 
-        <!-- Daily Statements View -->
-        <div id="statements-view" class="hidden">
-            <div class="card">
-                <h2>📜 Daily Reading - 7 Statements of Intent</h2>
-                <p style="color: #6b7280; margin-bottom: 20px;">Read these every morning to align with your transformation</p>
-                
-                <div class="statement-card">
-                    <div class="statement-title">1. Physical Foundation & Energy</div>
-                    <div class="statement-text">Over the next 3 months, my mission is clear: to reach my ideal weight of 98kg, build lean muscle, live with unstoppable energy. I will optimize my hypertrophy training with intention—training to failure, tracking progress, staying disciplined. My nutrition will fuel performance, recovery, taking my vitality to new levels. More than just physical, I will cultivate a lifestyle that excites me, rediscovering passion through movement, focus, joyful living. This phase is not about a number—it's about becoming the most energetic, purpose-driven version of myself.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">2. Nutrition & Energy Mastery</div>
-                    <div class="statement-text">Today, I honour my body, feeding it with intention, momentum. Each meal is a reflection of discipline, self-respect, fueling performance, recovery, clarity. I choose foods that elevate my energy, sharpen my focus. Hydration, timing, simplicity guide me—no distractions, no apologies. My nutrition isn't just habit. It's ritual. It's how I create momentum from within. Over the next 3 months I will continue to progress, reach 98kg not through restriction but through refinement. My nutrition will be precise, lean, balanced, geared for hypertrophy, vitality. This isn't just about food—it's about becoming someone who honors their body as the foundation for everything else.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">3. Relationships & Connections</div>
-                    <div class="statement-text">Over the next 3 months I'll build on my progress. I'll lean deeper into connection based on character. I'll express love freely to those I trust—male or female—because love is clarity, not confusion. My energy will be shared with people who reflect sound moral faithfulness, emotional maturity. There will be no space for ego-driven ties or relationships built on escape. I choose depth. I'll act from integrity, build trust through quiet consistency over judgement. Most importantly, I will be present, open, available with my son Cory. I want him to be proud of me, I want him to know I'm proud of him. This isn't about being liked—it's about becoming someone worthy of deep, honest love.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">4. Mindset & Identity</div>
-                    <div class="statement-text">Over the next 3 months I continue to train my mindset every day. Journaling, reflection, deliberate thinking help me unravel what's beneath the surface. I don't avoid fear—I sit with it, come at it, walk towards it. My walk towards the flames. Confidence builds with effort, small steps, honest personal accountability. Thinking deeper means I slow down enough to see what matters—discern what doesn't. This isn't about positive thinking—it's about becoming someone who faces truth and grows stronger from it.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">5. Precision Systems & Environmental Integrity</div>
-                    <div class="statement-text">Over the next 3 months I refine the systems that support my rhythm. My tools, calendar, processes, space are intentional. I remove friction where it slows me down. My desktop, my phone, my bedroom, my food prep—everything reflects order. I keep my workflow lean, my planning clean, my day structured. This isn't obsession. It's ownership. Every day I wake up knowing what I need to do—not because I memorized it, but because my systems remember for me. I automate freedom. This isn't about organization—it's about becoming someone whose environment amplifies their best self.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">6. Business Liberation & Strategic Lifestyle Design</div>
-                    <div class="statement-text">Over the next 3 months, I build ProBrands with financial clarity, emotional precision. My systems are clean, scalable. My delivery is seamless, trustworthy. My operations reflect simplicity, strength. Every step matters. No double handling. No confusion. I utilize AI to enhance speed, achieve excellence. I care deeply, I give generously—but I no longer attach emotionally to clients who don't see the work, the discipline, the heart. Thailand becomes more than relocation—it becomes the rhythm of my new life. This business begins paying for my lifestyle, my clarity, my freedom. This isn't about making money—it's about becoming someone whose work funds their freedom and purpose.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">7. Financial Freedom & Worthiness</div>
-                    <div class="statement-text">Over the next 3 months, I walk towards my money flames. Like hypertrophy - low and slow, constantly building, clear, concise, measured. I face my fear of failure by walking towards the flame instead of avoiding financial decisions. I build worthiness by setting concrete targets - trips to Thailand, relocation fund goals, learning to invest for the first time. My financial systems include: Thailand relocation fund with specific targets, learning investment basics and taking first steps, monthly financial reviews, emergency fund building, and tracking every dollar with intention. I'm walking into investing as a complete beginner - no shame, just courage to learn and grow. This isn't about getting rich—it's about becoming someone worthy of wealth who uses it to create extraordinary impact.</div>
-                </div>
-
-                <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #9333ea;">
-                    <h3>✅ Mark as Read</h3>
-                    <p>Once you've read all 7 statements, mark them as complete for today</p>
-                    <button class="btn" style="background: #9333ea;" onclick="completeReading()">📖 Reading Complete</button>
-                </div>
-            </div>
-        </div>
-
         <!-- Morning Ritual View -->
         <div id="morning-view" class="hidden">
             <div class="card">
-                <h2>🌅 Morning Ritual - Intention Setting</h2>
+                <h2>🌅 Morning Ritual - Tim's 18 Questions</h2>
                 
                 <div style="background: #f3f4f6; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -229,7 +180,13 @@
                     <h3>🔥 Identify Your Flame</h3>
                     <p style="color: #9a3412; margin-bottom: 15px;">What flame will you walk towards today? What challenge will you face instead of avoiding?</p>
                     <input type="text" class="input-field" id="flame-input" placeholder="The specific challenge or difficult conversation I'll face today...">
-                    <button class="btn" onclick="completeMorning()" id="complete-morning-btn">🔥 Begin Transformation</button>
+                    <button class="btn" onclick="completeMorning()" id="complete-morning-btn">🔥 Complete Morning Ritual</button>
+                </div>
+
+                <div class="card" id="send-to-tim" style="display: none; background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 2px solid #2563eb;">
+                    <h3>📧 Send Answers to Tim</h3>
+                    <p style="color: #1e40af; margin-bottom: 15px;">Your morning reflection is complete! Send your answers to Tim for coaching feedback.</p>
+                    <button class="btn btn-blue" onclick="sendMorningToTim()">📤 Send Morning Answers to Tim</button>
                 </div>
             </div>
         </div>
@@ -243,27 +200,27 @@
                     <h3>Tim's 6 Reflection Questions</h3>
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600;">A moment that I really appreciated today was...</label>
-                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                        <textarea class="textarea-field" id="reflection1" placeholder="Your reflection..."></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600;">A situation or task I handled well today was...</label>
-                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                        <textarea class="textarea-field" id="reflection2" placeholder="Your reflection..."></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600;">Something I realised or learned today was...</label>
-                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                        <textarea class="textarea-field" id="reflection3" placeholder="Your reflection..."></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600;">I could have made today even better if I...</label>
-                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                        <textarea class="textarea-field" id="reflection4" placeholder="Your reflection..."></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600;">Something that could have helped me feel more connected...</label>
-                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                        <textarea class="textarea-field" id="reflection5" placeholder="Your reflection..."></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600;">If I was my own performance coach, I would tell myself...</label>
-                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                        <textarea class="textarea-field" id="reflection6" placeholder="Your reflection..."></textarea>
                     </div>
                 </div>
 
@@ -272,61 +229,61 @@
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 10px; font-weight: 600;">CLARITY - I knew my 'why' and lived intentionally today</label>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('clarity', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('clarity', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('clarity', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('clarity', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('clarity', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                            <button onclick="setScore('clarity', 1)" class="score-btn" data-domain="clarity" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('clarity', 2)" class="score-btn" data-domain="clarity" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('clarity', 3)" class="score-btn" data-domain="clarity" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('clarity', 4)" class="score-btn" data-domain="clarity" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('clarity', 5)" class="score-btn" data-domain="clarity" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
                         </div>
                     </div>
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 10px; font-weight: 600;">ENERGY - I managed my physical and mental energy well today</label>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('energy', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('energy', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('energy', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('energy', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('energy', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                            <button onclick="setScore('energy', 1)" class="score-btn" data-domain="energy" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('energy', 2)" class="score-btn" data-domain="energy" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('energy', 3)" class="score-btn" data-domain="energy" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('energy', 4)" class="score-btn" data-domain="energy" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('energy', 5)" class="score-btn" data-domain="energy" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
                         </div>
                     </div>
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 10px; font-weight: 600;">NECESSITY - I felt it was necessary to be my best</label>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('necessity', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('necessity', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('necessity', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('necessity', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('necessity', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                            <button onclick="setScore('necessity', 1)" class="score-btn" data-domain="necessity" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('necessity', 2)" class="score-btn" data-domain="necessity" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('necessity', 3)" class="score-btn" data-domain="necessity" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('necessity', 4)" class="score-btn" data-domain="necessity" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('necessity', 5)" class="score-btn" data-domain="necessity" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
                         </div>
                     </div>
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 10px; font-weight: 600;">PRODUCTIVITY - I worked on things that mattered most</label>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('productivity', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('productivity', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('productivity', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('productivity', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('productivity', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                            <button onclick="setScore('productivity', 1)" class="score-btn" data-domain="productivity" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('productivity', 2)" class="score-btn" data-domain="productivity" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('productivity', 3)" class="score-btn" data-domain="productivity" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('productivity', 4)" class="score-btn" data-domain="productivity" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('productivity', 5)" class="score-btn" data-domain="productivity" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
                         </div>
                     </div>
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 10px; font-weight: 600;">INFLUENCE - I guided or treated others well today</label>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('influence', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('influence', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('influence', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('influence', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('influence', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                            <button onclick="setScore('influence', 1)" class="score-btn" data-domain="influence" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('influence', 2)" class="score-btn" data-domain="influence" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('influence', 3)" class="score-btn" data-domain="influence" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('influence', 4)" class="score-btn" data-domain="influence" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('influence', 5)" class="score-btn" data-domain="influence" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
                         </div>
                     </div>
                     <div style="margin-bottom: 25px;">
                         <label style="display: block; margin-bottom: 10px; font-weight: 600;">COURAGE - I shared my real self, thoughts, and feelings</label>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('courage', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('courage', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('courage', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('courage', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('courage', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                            <button onclick="setScore('courage', 1)" class="score-btn" data-domain="courage" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('courage', 2)" class="score-btn" data-domain="courage" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('courage', 3)" class="score-btn" data-domain="courage" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('courage', 4)" class="score-btn" data-domain="courage" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('courage', 5)" class="score-btn" data-domain="courage" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
                         </div>
                     </div>
                 </div>
@@ -336,10 +293,16 @@
                     <div style="margin-bottom: 15px;">
                         <strong>Today's flame:</strong> <span id="evening-flame-text" style="color: #ea580c;"></span>
                     </div>
-                    <textarea class="textarea-field" placeholder="Did you walk towards this flame? What did you learn?"></textarea>
+                    <textarea class="textarea-field" id="flame-reflection-text" placeholder="Did you walk towards this flame? What did you learn?"></textarea>
                 </div>
 
                 <button class="btn btn-blue" onclick="completeEvening()">🌙 Complete Evening Ritual</button>
+
+                <div class="card" id="send-evening-to-tim" style="display: none; background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 2px solid #2563eb;">
+                    <h3>📧 Send Evening Reflection to Tim</h3>
+                    <p style="color: #1e40af; margin-bottom: 15px;">Your evening reflection is complete! Send your answers and performance scores to Tim.</p>
+                    <button class="btn btn-blue" onclick="sendEveningToTim()">📤 Send Evening Reflection to Tim</button>
+                </div>
             </div>
         </div>
 
@@ -478,6 +441,55 @@
                     <div class="flame-title">🔥 Protein Flame Alert</div>
                     <div class="flame-text">Your discipline chose <span id="current-protein-amount">0</span>g over 265.8g today. Someone who honors their body completes their protein.</div>
                     <button class="btn btn-small" onclick="addProtein(25)">Add Protein Shake (+25g)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Statements View -->
+        <div id="statements-view" class="hidden">
+            <div class="card">
+                <h2>📜 Daily Reading - 7 Statements of Intent</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Read these every morning to align with your transformation</p>
+                
+                <div class="statement-card">
+                    <div class="statement-title">1. Physical Foundation & Energy</div>
+                    <div class="statement-text">Over the next 3 months, my mission is clear: to reach my ideal weight of 98kg, build lean muscle, live with unstoppable energy. I will optimize my hypertrophy training with intention—training to failure, tracking progress, staying disciplined. My nutrition will fuel performance, recovery, taking my vitality to new levels.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">2. Nutrition & Energy Mastery</div>
+                    <div class="statement-text">Today, I honour my body, feeding it with intention, momentum. Each meal is a reflection of discipline, self-respect, fueling performance, recovery, clarity. I choose foods that elevate my energy, sharpen my focus.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">3. Relationships & Connections</div>
+                    <div class="statement-text">Over the next 3 months I'll build on my progress. I'll lean deeper into connection based on character. I'll express love freely to those I trust—male or female—because love is clarity, not confusion.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">4. Mindset & Identity</div>
+                    <div class="statement-text">Over the next 3 months I continue to train my mindset every day. Journaling, reflection, deliberate thinking help me unravel what's beneath the surface. I don't avoid fear—I sit with it, come at it, walk towards it.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">5. Precision Systems & Environmental Integrity</div>
+                    <div class="statement-text">Over the next 3 months I refine the systems that support my rhythm. My tools, calendar, processes, space are intentional. I remove friction where it slows me down.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">6. Business Liberation & Strategic Lifestyle Design</div>
+                    <div class="statement-text">Over the next 3 months, I build ProBrands with financial clarity, emotional precision. My systems are clean, scalable. My delivery is seamless, trustworthy.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">7. Financial Freedom & Worthiness</div>
+                    <div class="statement-text">Over the next 3 months, I walk towards my money flames. Like hypertrophy - low and slow, constantly building, clear, concise, measured. I face my fear of failure by walking towards the flame instead of avoiding financial decisions.</div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #9333ea;">
+                    <h3>✅ Mark as Read</h3>
+                    <p>Once you've read all 7 statements, mark them as complete for today</p>
+                    <button class="btn" style="background: #9333ea;" onclick="completeReading()">📖 Reading Complete</button>
                 </div>
             </div>
         </div>
@@ -630,7 +642,7 @@
             "I would know that today was a great success if at the end of the day I did or felt these things..."
         ];
 
-        // Application state
+        // Application state  
         let appData = {
             readingCompleted: false,
             morningCompleted: false,
@@ -644,7 +656,8 @@
             isTrainingDay: true,
             currentQuestionIndex: 0,
             morningAnswers: [],
-            claudeMessages: [],
+            eveningReflections: [],
+            flameReflection: '',
             exerciseData: {}
         };
 
@@ -661,12 +674,22 @@
 
         // Load/save data
         function loadData() {
-            const saved = localStorage.getItem('hypertrophy-data');
-            if (saved) appData = {...appData, ...JSON.parse(saved)};
+            try {
+                // Using memory storage instead of localStorage for Claude.ai compatibility
+                if (window.appStorage) {
+                    appData = {...appData, ...window.appStorage};
+                }
+            } catch (e) {
+                console.log('Using default data');
+            }
         }
 
         function saveData() {
-            localStorage.setItem('hypertrophy-data', JSON.stringify(appData));
+            try {
+                window.appStorage = appData;
+            } catch (e) {
+                console.log('Data saved to memory');
+            }
         }
 
         // Navigation
@@ -680,8 +703,13 @@
             const selectedView = document.getElementById(viewName + '-view');
             if (selectedView) selectedView.classList.remove('hidden');
             
+            // Update active tab
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                if (tab.onclick && tab.onclick.toString().includes(`showView('${viewName}')`)) {
+                    tab.classList.add('active');
+                }
+            });
 
             if (viewName === 'morning') updateMorningView();
             if (viewName === 'evening') updateEveningView();
@@ -705,6 +733,7 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const flameIdentification = document.getElementById('flame-identification');
+            const morningAnswer = document.getElementById('morning-answer');
             
             if (questionNumber && questionPercentage && questionProgress && currentQuestion) {
                 const progress = Math.round(((appData.currentQuestionIndex + 1) / morningQuestions.length) * 100);
@@ -718,14 +747,25 @@
                 if (nextBtn) nextBtn.textContent = appData.currentQuestionIndex === morningQuestions.length - 1 ? 'Complete Questions' : 'Next →';
                 
                 if (flameIdentification) {
-                    flameIdentification.style.display = appData.currentQuestionIndex === morningQuestions.length - 1 ? 'block' : 'none';
+                    flameIdentification.style.display = appData.currentQuestionIndex === morningQuestions.length - 1 && appData.morningAnswers.length === morningQuestions.length ? 'block' : 'none';
+                }
+
+                // Load saved answer if exists
+                if (morningAnswer && appData.morningAnswers[appData.currentQuestionIndex]) {
+                    morningAnswer.value = appData.morningAnswers[appData.currentQuestionIndex];
                 }
             }
         }
 
         function previousQuestion() {
+            const answer = document.getElementById('morning-answer');
+            if (answer) {
+                appData.morningAnswers[appData.currentQuestionIndex] = answer.value.trim();
+            }
+            
             if (appData.currentQuestionIndex > 0) {
                 appData.currentQuestionIndex -= 1;
+                saveData();
                 updateMorningView();
             }
         }
@@ -743,19 +783,64 @@
                     updateMorningView();
                 }
                 saveData();
+            } else {
+                alert('Please provide an answer before continuing.');
             }
         }
 
         function completeMorning() {
             const flameInput = document.getElementById('flame-input');
+            const sendToTim = document.getElementById('send-to-tim');
+            
             if (flameInput && flameInput.value.trim()) {
                 appData.currentFlame = flameInput.value.trim();
                 appData.morningCompleted = true;
                 saveData();
                 updateUI();
-                showView('dashboard');
+                
+                if (sendToTim) sendToTim.style.display = 'block';
                 alert('🔥 Morning ritual completed! Your flame is identified.');
+            } else {
+                alert('Please identify your flame for today.');
             }
+        }
+
+        function sendMorningToTim() {
+            const morningData = {
+                date: new Date().toISOString().split('T')[0],
+                questions: morningQuestions,
+                answers: appData.morningAnswers,
+                flame: appData.currentFlame
+            };
+            
+            const emailSubject = `Morning Reflection - ${morningData.date}`;
+            const emailBody = `Hi Tim,
+
+Here are my morning reflection answers for ${morningData.date}:
+
+${morningQuestions.map((q, i) => `${i + 1}. ${q}\nAnswer: ${appData.morningAnswers[i] || 'No answer provided'}\n`).join('\n')}
+
+Today's Flame: ${appData.currentFlame}
+
+Best regards,
+Anthony`;
+
+            // Create mailto link
+            const mailtoLink = `mailto:info@timcooperacademy.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Also create downloadable file
+            const dataStr = JSON.stringify(morningData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `morning-reflection-${morningData.date}.json`;
+            link.click();
+            
+            // Open email client
+            window.open(mailtoLink);
+            
+            alert('📧 Morning answers prepared for Tim! Check your email client and downloads.');
         }
 
         // Evening ritual functions
@@ -771,16 +856,122 @@
 
         function setScore(domain, score) {
             appData.dailyScores[domain] = score;
+            
+            // Update button styles
+            document.querySelectorAll(`.score-btn[data-domain="${domain}"]`).forEach(btn => {
+                btn.style.background = 'white';
+                btn.style.color = 'black';
+                btn.style.borderColor = '#d1d5db';
+            });
+            
+            const selectedBtn = document.querySelector(`.score-btn[data-domain="${domain}"][data-score="${score}"]`);
+            if (selectedBtn) {
+                selectedBtn.style.background = '#ea580c';
+                selectedBtn.style.color = 'white';
+                selectedBtn.style.borderColor = '#ea580c';
+            }
+            
             saveData();
             updateUI();
         }
 
         function completeEvening() {
+            // Save reflection answers
+            const reflections = [];
+            for (let i = 1; i <= 6; i++) {
+                const reflectionElement = document.getElementById(`reflection${i}`);
+                if (reflectionElement) {
+                    reflections.push(reflectionElement.value.trim());
+                }
+            }
+            appData.eveningReflections = reflections;
+            
+            // Save flame reflection
+            const flameReflectionElement = document.getElementById('flame-reflection-text');
+            if (flameReflectionElement) {
+                appData.flameReflection = flameReflectionElement.value.trim();
+            }
+            
             appData.eveningCompleted = true;
             saveData();
             updateUI();
-            showView('dashboard');
+            
+            const sendEveningToTim = document.getElementById('send-evening-to-tim');
+            if (sendEveningToTim) sendEveningToTim.style.display = 'block';
+            
             alert('🌙 Evening ritual completed!');
+        }
+
+        function sendEveningToTim() {
+            const reflectionQuestions = [
+                "A moment that I really appreciated today was...",
+                "A situation or task I handled well today was...",
+                "Something I realised or learned today was...",
+                "I could have made today even better if I...",
+                "Something that could have helped me feel more connected...",
+                "If I was my own performance coach, I would tell myself..."
+            ];
+            
+            const eveningData = {
+                date: new Date().toISOString().split('T')[0],
+                reflections: reflectionQuestions.map((q, i) => ({
+                    question: q,
+                    answer: appData.eveningReflections[i] || 'No answer provided'
+                })),
+                scores: appData.dailyScores,
+                averageScore: (Object.values(appData.dailyScores).reduce((a, b) => a + b, 0) / 6).toFixed(1),
+                flame: appData.currentFlame,
+                flameReflection: appData.flameReflection,
+                weight: appData.currentWeight,
+                protein: appData.proteinIntake,
+                trainingCompleted: appData.trainingCompleted
+            };
+            
+            const emailSubject = `Evening Reflection - ${eveningData.date}`;
+            const emailBody = `Hi Tim,
+
+Here's my evening reflection for ${eveningData.date}:
+
+REFLECTIONS:
+${reflectionQuestions.map((q, i) => `${i + 1}. ${q}\nAnswer: ${appData.eveningReflections[i] || 'No answer provided'}\n`).join('\n')}
+
+PERFORMANCE SCORES:
+Clarity: ${appData.dailyScores.clarity}/5
+Energy: ${appData.dailyScores.energy}/5
+Necessity: ${appData.dailyScores.necessity}/5
+Productivity: ${appData.dailyScores.productivity}/5
+Influence: ${appData.dailyScores.influence}/5
+Courage: ${appData.dailyScores.courage}/5
+Average: ${eveningData.averageScore}/5
+
+FLAME REFLECTION:
+Today's Flame: ${appData.currentFlame}
+Reflection: ${appData.flameReflection}
+
+METRICS:
+Weight: ${appData.currentWeight}kg
+Protein: ${appData.proteinIntake}g
+Training: ${appData.trainingCompleted ? 'Completed' : 'Not completed'}
+
+Best regards,
+Anthony`;
+
+            // Create mailto link
+            const mailtoLink = `mailto:info@timcooperacademy.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Also create downloadable file
+            const dataStr = JSON.stringify(eveningData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `evening-reflection-${eveningData.date}.json`;
+            link.click();
+            
+            // Open email client
+            window.open(mailtoLink);
+            
+            alert('📧 Evening reflection prepared for Tim! Check your email client and downloads.');
         }
 
         // Nutrition functions
