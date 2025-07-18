@@ -33,7 +33,6 @@
         .flame-alert { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 6px solid #f59e0b; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
         .flame-title { color: #92400e; font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; }
         .flame-text { color: #b45309; font-size: 1rem; margin-bottom: 15px; }
-        .focus-statement { font-style: italic; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-radius: 10px; border-left: 4px solid #ea580c; margin: 20px 0; line-height: 1.7; }
         .statement-card { background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-radius: 10px; border-left: 4px solid #ea580c; margin: 15px 0; }
         .statement-title { color: #ea580c; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
         .statement-text { color: #374151; line-height: 1.6; }
@@ -59,12 +58,12 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showView('dashboard')">🏠 Dashboard</button>
-            <button class="nav-tab" onclick="showView('statements')">📜 Daily Reading</button>
-            <button class="nav-tab" onclick="showView('morning')">🌅 Morning</button>
-            <button class="nav-tab" onclick="showView('evening')">🌙 Evening</button>
-            <button class="nav-tab" onclick="showView('nutrition')">🍎 Nutrition</button>
-            <button class="nav-tab" onclick="showView('training')">💪 Training</button>
+            <button class="nav-tab active" onclick="showView('dashboard')" data-view="dashboard">🏠 Dashboard</button>
+            <button class="nav-tab" onclick="showView('statements')" data-view="statements">📜 Daily Reading</button>
+            <button class="nav-tab" onclick="showView('morning')" data-view="morning">🌅 Morning</button>
+            <button class="nav-tab" onclick="showView('evening')" data-view="evening">🌙 Evening</button>
+            <button class="nav-tab" onclick="showView('nutrition')" data-view="nutrition">🍎 Nutrition</button>
+            <button class="nav-tab" onclick="showView('training')" data-view="training">💪 Training</button>
         </div>
 
         <!-- Dashboard View -->
@@ -675,7 +674,6 @@
         // Load/save data
         function loadData() {
             try {
-                // Using memory storage instead of localStorage for Claude.ai compatibility
                 if (window.appStorage) {
                     appData = {...appData, ...window.appStorage};
                 }
@@ -703,13 +701,9 @@
             const selectedView = document.getElementById(viewName + '-view');
             if (selectedView) selectedView.classList.remove('hidden');
             
-            // Update active tab
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                if (tab.onclick && tab.onclick.toString().includes(`showView('${viewName}')`)) {
-                    tab.classList.add('active');
-                }
-            });
+            const activeTab = document.querySelector(`[data-view="${viewName}"]`);
+            if (activeTab) activeTab.classList.add('active');
 
             if (viewName === 'morning') updateMorningView();
             if (viewName === 'evening') updateEveningView();
@@ -750,7 +744,6 @@
                     flameIdentification.style.display = appData.currentQuestionIndex === morningQuestions.length - 1 && appData.morningAnswers.length === morningQuestions.length ? 'block' : 'none';
                 }
 
-                // Load saved answer if exists
                 if (morningAnswer && appData.morningAnswers[appData.currentQuestionIndex]) {
                     morningAnswer.value = appData.morningAnswers[appData.currentQuestionIndex];
                 }
@@ -825,10 +818,8 @@ Today's Flame: ${appData.currentFlame}
 Best regards,
 Anthony`;
 
-            // Create mailto link
             const mailtoLink = `mailto:info@timcooperacademy.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             
-            // Also create downloadable file
             const dataStr = JSON.stringify(morningData, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const url = URL.createObjectURL(dataBlob);
@@ -837,7 +828,6 @@ Anthony`;
             link.download = `morning-reflection-${morningData.date}.json`;
             link.click();
             
-            // Open email client
             window.open(mailtoLink);
             
             alert('📧 Morning answers prepared for Tim! Check your email client and downloads.');
@@ -857,7 +847,6 @@ Anthony`;
         function setScore(domain, score) {
             appData.dailyScores[domain] = score;
             
-            // Update button styles
             document.querySelectorAll(`.score-btn[data-domain="${domain}"]`).forEach(btn => {
                 btn.style.background = 'white';
                 btn.style.color = 'black';
@@ -876,7 +865,6 @@ Anthony`;
         }
 
         function completeEvening() {
-            // Save reflection answers
             const reflections = [];
             for (let i = 1; i <= 6; i++) {
                 const reflectionElement = document.getElementById(`reflection${i}`);
@@ -886,7 +874,6 @@ Anthony`;
             }
             appData.eveningReflections = reflections;
             
-            // Save flame reflection
             const flameReflectionElement = document.getElementById('flame-reflection-text');
             if (flameReflectionElement) {
                 appData.flameReflection = flameReflectionElement.value.trim();
@@ -956,10 +943,8 @@ Training: ${appData.trainingCompleted ? 'Completed' : 'Not completed'}
 Best regards,
 Anthony`;
 
-            // Create mailto link
             const mailtoLink = `mailto:info@timcooperacademy.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             
-            // Also create downloadable file
             const dataStr = JSON.stringify(eveningData, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const url = URL.createObjectURL(dataBlob);
@@ -968,7 +953,6 @@ Anthony`;
             link.download = `evening-reflection-${eveningData.date}.json`;
             link.click();
             
-            // Open email client
             window.open(mailtoLink);
             
             alert('📧 Evening reflection prepared for Tim! Check your email client and downloads.');
@@ -1025,7 +1009,6 @@ Anthony`;
                 const exerciseCard = document.getElementById(`exercise-${exerciseNum}`);
                 exerciseCard.classList.add('exercise-complete');
                 
-                // Store the data
                 if (!appData.exerciseData[exerciseNum]) {
                     appData.exerciseData[exerciseNum] = {};
                 }
@@ -1066,19 +1049,27 @@ Anthony`;
             alert('📊 Data exported! Share this file with Claude for weekly analysis.');
         }
 
+        // Flame recalibration function
+        function showRecalibration() {
+            const response = prompt("What flame will you walk towards right now? What challenge will you face instead of avoiding?");
+            if (response && response.trim()) {
+                appData.currentFlame = response.trim();
+                saveData();
+                updateUI();
+                alert('🔥 New flame identified! Time to take action.');
+            }
+        }
+
         // UI updates
         function updateUI() {
-            // Update displays
             document.getElementById('current-weight').textContent = appData.currentWeight + 'kg';
             document.getElementById('protein-display').textContent = appData.proteinIntake + 'g';
             document.getElementById('thailand-display').textContent = '$' + appData.thailandFund.toLocaleString();
             
-            // Update input fields
             document.getElementById('protein-input').value = appData.proteinIntake;
             document.getElementById('weight-input').value = appData.currentWeight;
             document.getElementById('thailand-input').value = appData.thailandFund;
             
-            // Update progress bars
             const weightProgress = Math.round(((105 - appData.currentWeight) / (105 - 98)) * 100);
             const proteinProgress = Math.round((appData.proteinIntake / 265.8) * 100);
             const thailandProgress = Math.round((appData.thailandFund / 150000) * 100);
@@ -1087,17 +1078,14 @@ Anthony`;
             document.getElementById('protein-progress').style.width = Math.min(100, proteinProgress) + '%';
             document.getElementById('thailand-progress').style.width = Math.min(100, thailandProgress) + '%';
             
-            // Update status
             document.getElementById('reading-status').textContent = appData.readingCompleted ? '✅ Complete' : '📖 Not Started';
             document.getElementById('morning-status').textContent = appData.morningCompleted ? '✅ Complete' : '⏰ Pending';
             document.getElementById('evening-status').textContent = appData.eveningCompleted ? '✅ Complete' : '⏰ Pending';
             
-            // Update performance score
             const scores = Object.values(appData.dailyScores);
             const average = scores.reduce((a, b) => a + b, 0) / scores.length || 0;
             document.getElementById('average-score').textContent = average.toFixed(1) + '/5';
             
-            // Show flame alert
             const flameAlert = document.getElementById('flame-alert');
             if (appData.proteinIntake < 265.8 * 0.8 || !appData.trainingCompleted) {
                 flameAlert.style.display = 'block';
@@ -1105,7 +1093,6 @@ Anthony`;
                 flameAlert.style.display = 'none';
             }
             
-            // Show current flame
             const flameDisplay = document.getElementById('flame-display');
             const currentFlameText = document.getElementById('current-flame-text');
             if (appData.currentFlame) {
@@ -1115,7 +1102,6 @@ Anthony`;
                 flameDisplay.style.display = 'none';
             }
             
-            // Update nutrition adjustments
             const oatsServing = document.getElementById('oats-serving');
             const potatoServing = document.getElementById('potato-serving');
             if (oatsServing && potatoServing) {
@@ -1123,7 +1109,6 @@ Anthony`;
                 potatoServing.textContent = appData.isTrainingDay ? '200g' : '125g';
             }
             
-            // Update day toggle
             const dayToggle = document.getElementById('day-toggle');
             const nutritionTargets = document.getElementById('nutrition-targets');
             if (dayToggle) {
@@ -1134,7 +1119,6 @@ Anthony`;
                 nutritionTargets.textContent = `Calories: ${calories} | Protein: 265.8g | Carbs: 274.4g | Fat: 43.8g`;
             }
             
-            // Update training status
             const trainingBtn = document.getElementById('training-btn');
             const trainingFlame = document.getElementById('training-flame');
             if (trainingBtn && trainingFlame) {
@@ -1149,7 +1133,6 @@ Anthony`;
                 }
             }
             
-            // Update nutrition flame
             const nutritionFlame = document.getElementById('nutrition-flame');
             const currentProteinAmount = document.getElementById('current-protein-amount');
             if (nutritionFlame && currentProteinAmount) {
