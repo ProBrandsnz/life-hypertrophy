@@ -34,6 +34,9 @@
         .flame-title { color: #92400e; font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; }
         .flame-text { color: #b45309; font-size: 1rem; margin-bottom: 15px; }
         .focus-statement { font-style: italic; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-radius: 10px; border-left: 4px solid #ea580c; margin: 20px 0; line-height: 1.7; }
+        .statement-card { background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-radius: 10px; border-left: 4px solid #ea580c; margin: 15px 0; }
+        .statement-title { color: #ea580c; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
+        .statement-text { color: #374151; line-height: 1.6; }
         .meal-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; margin-bottom: 15px; }
         .food-item { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #e5e7eb; }
         .food-item h5 { color: #374151; margin-bottom: 8px; }
@@ -41,4 +44,935 @@
         .protein-value { color: #16a34a; font-weight: 600; }
         .exercise-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; margin-bottom: 15px; }
         .set-tracker { display: flex; gap: 10px; align-items: center; margin: 10px 0; }
-        .set-input
+        .set-input { width: 80px; padding: 8px; border: 1px solid #d1d5db; border-radius: 5px; text-align: center; }
+        .exercise-complete { background: #f0fdf4; border-color: #16a34a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 Hypertrophy OS</h1>
+            <p>Walking Towards the Flames - Your Complete Transformation Protocol</p>
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #7c2d12;">
+                <strong>Today:</strong> <span id="current-date"></span>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showView('dashboard')">🏠 Dashboard</button>
+            <button class="nav-tab" onclick="showView('statements')">📜 Daily Reading</button>
+            <button class="nav-tab" onclick="showView('morning')">🌅 Morning</button>
+            <button class="nav-tab" onclick="showView('evening')">🌙 Evening</button>
+            <button class="nav-tab" onclick="showView('nutrition')">🍎 Nutrition</button>
+            <button class="nav-tab" onclick="showView('training')">💪 Training</button>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view">
+            <div class="grid">
+                <div class="card" style="border: 3px solid #9333ea; background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                    <h3>📜 Daily Reading</h3>
+                    <p>Your 7 Statements of Intent</p>
+                    <div>Status: <span id="reading-status">Not Started</span></div>
+                    <button class="btn" style="background: #9333ea;" onclick="showView('statements')">📖 Read Daily Statements</button>
+                </div>
+                <div class="card" style="border: 3px solid #ea580c; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);">
+                    <h3>🌅 Morning Ritual</h3>
+                    <p>Tim's 18 Questions & Flame Identification</p>
+                    <div>Status: <span id="morning-status">Pending</span></div>
+                    <button class="btn" onclick="showView('morning')">🔥 Start Morning Practice</button>
+                </div>
+                <div class="card" style="border: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+                    <h3>🌙 Evening Ritual</h3>
+                    <p>6 Reflections & Performance Scoring</p>
+                    <div>Status: <span id="evening-status">Pending</span></div>
+                    <button class="btn btn-blue" onclick="showView('evening')">🧠 Start Evening Practice</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Today's Performance</h3>
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3.5rem; font-weight: 900; color: #374151; margin-bottom: 5px;" id="average-score">0.0/5</div>
+                    <p style="color: #6b7280;">Daily Average</p>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>🎯 Weight Goal</h4>
+                    <div style="font-size: 2rem; font-weight: 900; color: #374151; margin: 8px 0;" id="current-weight">105kg</div>
+                    <div style="color: #6b7280; margin-bottom: 8px;">Target: 98kg</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill blue" id="weight-progress" style="width: 0%"></div>
+                    </div>
+                    <input type="number" class="input-field" id="weight-input" value="105" onchange="updateWeight()" placeholder="Current weight">
+                </div>
+
+                <div class="card">
+                    <h4>🍎 Protein Today</h4>
+                    <div style="font-size: 2rem; font-weight: 900; color: #374151; margin: 8px 0;" id="protein-display">0g</div>
+                    <div style="color: #6b7280; margin-bottom: 8px;">Target: 265.8g</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="protein-progress" style="width: 0%"></div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" class="input-field" id="protein-input" value="0" onchange="updateProtein()" placeholder="Protein" style="width: 60%;">
+                        <button class="btn btn-green btn-small" onclick="addProtein(25)">+25g</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>💰 Thailand Fund</h4>
+                    <div style="font-size: 2rem; font-weight: 900; color: #374151; margin: 8px 0;" id="thailand-display">$45,000</div>
+                    <div style="color: #6b7280; margin-bottom: 8px;">Target: $150,000</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill purple" id="thailand-progress" style="width: 30%"></div>
+                    </div>
+                    <input type="number" class="input-field" id="thailand-input" value="45000" onchange="updateThailand()" placeholder="Thailand fund">
+                </div>
+            </div>
+
+            <div class="flame-alert" id="flame-alert">
+                <div class="flame-title">🔥 Flame Alert</div>
+                <div class="flame-text" id="flame-message">You chose comfort over growth today. What flame will you walk towards?</div>
+                <button class="btn" onclick="showRecalibration()">Walk Towards Flame</button>
+            </div>
+
+            <div class="card" id="flame-display" style="display: none;">
+                <h3>🔥 Today's Flame</h3>
+                <div style="font-size: 1.1rem; color: #ea580c; font-weight: 600; margin: 10px 0;" id="current-flame-text"></div>
+                <div style="color: #6b7280; font-size: 0.9rem;">The challenge you committed to walk towards today</div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #9333ea;">
+                <h3>📊 Export Data for Claude Analysis</h3>
+                <p>Download your transformation data for weekly coaching sessions</p>
+                <button class="btn" style="background: #9333ea;" onclick="exportData()">📁 Export Data for Claude</button>
+            </div>
+        </div>
+
+        <!-- Daily Statements View -->
+        <div id="statements-view" class="hidden">
+            <div class="card">
+                <h2>📜 Daily Reading - 7 Statements of Intent</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Read these every morning to align with your transformation</p>
+                
+                <div class="statement-card">
+                    <div class="statement-title">1. Physical Foundation & Energy</div>
+                    <div class="statement-text">Over the next 3 months, my mission is clear: to reach my ideal weight of 98kg, build lean muscle, live with unstoppable energy. I will optimize my hypertrophy training with intention—training to failure, tracking progress, staying disciplined. My nutrition will fuel performance, recovery, taking my vitality to new levels. More than just physical, I will cultivate a lifestyle that excites me, rediscovering passion through movement, focus, joyful living. This phase is not about a number—it's about becoming the most energetic, purpose-driven version of myself.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">2. Nutrition & Energy Mastery</div>
+                    <div class="statement-text">Today, I honour my body, feeding it with intention, momentum. Each meal is a reflection of discipline, self-respect, fueling performance, recovery, clarity. I choose foods that elevate my energy, sharpen my focus. Hydration, timing, simplicity guide me—no distractions, no apologies. My nutrition isn't just habit. It's ritual. It's how I create momentum from within. Over the next 3 months I will continue to progress, reach 98kg not through restriction but through refinement. My nutrition will be precise, lean, balanced, geared for hypertrophy, vitality. This isn't just about food—it's about becoming someone who honors their body as the foundation for everything else.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">3. Relationships & Connections</div>
+                    <div class="statement-text">Over the next 3 months I'll build on my progress. I'll lean deeper into connection based on character. I'll express love freely to those I trust—male or female—because love is clarity, not confusion. My energy will be shared with people who reflect sound moral faithfulness, emotional maturity. There will be no space for ego-driven ties or relationships built on escape. I choose depth. I'll act from integrity, build trust through quiet consistency over judgement. Most importantly, I will be present, open, available with my son Cory. I want him to be proud of me, I want him to know I'm proud of him. This isn't about being liked—it's about becoming someone worthy of deep, honest love.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">4. Mindset & Identity</div>
+                    <div class="statement-text">Over the next 3 months I continue to train my mindset every day. Journaling, reflection, deliberate thinking help me unravel what's beneath the surface. I don't avoid fear—I sit with it, come at it, walk towards it. My walk towards the flames. Confidence builds with effort, small steps, honest personal accountability. Thinking deeper means I slow down enough to see what matters—discern what doesn't. This isn't about positive thinking—it's about becoming someone who faces truth and grows stronger from it.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">5. Precision Systems & Environmental Integrity</div>
+                    <div class="statement-text">Over the next 3 months I refine the systems that support my rhythm. My tools, calendar, processes, space are intentional. I remove friction where it slows me down. My desktop, my phone, my bedroom, my food prep—everything reflects order. I keep my workflow lean, my planning clean, my day structured. This isn't obsession. It's ownership. Every day I wake up knowing what I need to do—not because I memorized it, but because my systems remember for me. I automate freedom. This isn't about organization—it's about becoming someone whose environment amplifies their best self.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">6. Business Liberation & Strategic Lifestyle Design</div>
+                    <div class="statement-text">Over the next 3 months, I build ProBrands with financial clarity, emotional precision. My systems are clean, scalable. My delivery is seamless, trustworthy. My operations reflect simplicity, strength. Every step matters. No double handling. No confusion. I utilize AI to enhance speed, achieve excellence. I care deeply, I give generously—but I no longer attach emotionally to clients who don't see the work, the discipline, the heart. Thailand becomes more than relocation—it becomes the rhythm of my new life. This business begins paying for my lifestyle, my clarity, my freedom. This isn't about making money—it's about becoming someone whose work funds their freedom and purpose.</div>
+                </div>
+
+                <div class="statement-card">
+                    <div class="statement-title">7. Financial Freedom & Worthiness</div>
+                    <div class="statement-text">Over the next 3 months, I walk towards my money flames. Like hypertrophy - low and slow, constantly building, clear, concise, measured. I face my fear of failure by walking towards the flame instead of avoiding financial decisions. I build worthiness by setting concrete targets - trips to Thailand, relocation fund goals, learning to invest for the first time. My financial systems include: Thailand relocation fund with specific targets, learning investment basics and taking first steps, monthly financial reviews, emergency fund building, and tracking every dollar with intention. I'm walking into investing as a complete beginner - no shame, just courage to learn and grow. This isn't about getting rich—it's about becoming someone worthy of wealth who uses it to create extraordinary impact.</div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #9333ea;">
+                    <h3>✅ Mark as Read</h3>
+                    <p>Once you've read all 7 statements, mark them as complete for today</p>
+                    <button class="btn" style="background: #9333ea;" onclick="completeReading()">📖 Reading Complete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Morning Ritual View -->
+        <div id="morning-view" class="hidden">
+            <div class="card">
+                <h2>🌅 Morning Ritual - Intention Setting</h2>
+                
+                <div style="background: #f3f4f6; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Question <span id="question-number">1</span> of 18</span>
+                        <span id="question-percentage">6%</span>
+                    </div>
+                    <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-top: 8px;">
+                        <div style="height: 100%; background: #ea580c; border-radius: 3px; transition: width 0.3s ease;" id="question-progress"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: #f9fafb;">
+                    <h4 id="current-question">Today's message to myself</h4>
+                    <textarea class="textarea-field" id="morning-answer" placeholder="Your response..."></textarea>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-blue" onclick="previousQuestion()" id="prev-btn">← Previous</button>
+                        <button class="btn" onclick="nextQuestion()" id="next-btn">Next →</button>
+                    </div>
+                </div>
+
+                <div class="card" id="flame-identification" style="display: none; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border: 2px solid #ea580c;">
+                    <h3>🔥 Identify Your Flame</h3>
+                    <p style="color: #9a3412; margin-bottom: 15px;">What flame will you walk towards today? What challenge will you face instead of avoiding?</p>
+                    <input type="text" class="input-field" id="flame-input" placeholder="The specific challenge or difficult conversation I'll face today...">
+                    <button class="btn" onclick="completeMorning()" id="complete-morning-btn">🔥 Begin Transformation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evening Ritual View -->
+        <div id="evening-view" class="hidden">
+            <div class="card">
+                <h2>🌙 Evening Ritual - Reflection & Growth</h2>
+                
+                <div class="card" style="background: #f9fafb;">
+                    <h3>Tim's 6 Reflection Questions</h3>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">A moment that I really appreciated today was...</label>
+                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">A situation or task I handled well today was...</label>
+                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Something I realised or learned today was...</label>
+                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">I could have made today even better if I...</label>
+                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Something that could have helped me feel more connected...</label>
+                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">If I was my own performance coach, I would tell myself...</label>
+                        <textarea class="textarea-field" placeholder="Your reflection..."></textarea>
+                    </div>
+                </div>
+
+                <div class="card" style="background: #f0f9ff;">
+                    <h3>Performance Domains (1-5 scale)</h3>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">CLARITY - I knew my 'why' and lived intentionally today</label>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button onclick="setScore('clarity', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('clarity', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('clarity', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('clarity', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('clarity', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">ENERGY - I managed my physical and mental energy well today</label>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button onclick="setScore('energy', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('energy', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('energy', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('energy', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('energy', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">NECESSITY - I felt it was necessary to be my best</label>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button onclick="setScore('necessity', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('necessity', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('necessity', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('necessity', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('necessity', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">PRODUCTIVITY - I worked on things that mattered most</label>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button onclick="setScore('productivity', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('productivity', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('productivity', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('productivity', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('productivity', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">INFLUENCE - I guided or treated others well today</label>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button onclick="setScore('influence', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('influence', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('influence', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('influence', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('influence', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">COURAGE - I shared my real self, thoughts, and feelings</label>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button onclick="setScore('courage', 1)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
+                            <button onclick="setScore('courage', 2)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
+                            <button onclick="setScore('courage', 3)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
+                            <button onclick="setScore('courage', 4)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
+                            <button onclick="setScore('courage', 5)" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="flame-reflection" style="display: none; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border: 2px solid #ea580c;">
+                    <h3>🔥 Flame Reflection</h3>
+                    <div style="margin-bottom: 15px;">
+                        <strong>Today's flame:</strong> <span id="evening-flame-text" style="color: #ea580c;"></span>
+                    </div>
+                    <textarea class="textarea-field" placeholder="Did you walk towards this flame? What did you learn?"></textarea>
+                </div>
+
+                <button class="btn btn-blue" onclick="completeEvening()">🌙 Complete Evening Ritual</button>
+            </div>
+        </div>
+
+        <!-- Nutrition View -->
+        <div id="nutrition-view" class="hidden">
+            <div class="card">
+                <h2>🍎 Nutrition Mastery</h2>
+                
+                <div class="card" style="background: #f0f9ff;">
+                    <h3>Day Type Configuration</h3>
+                    <button class="btn" id="day-toggle" onclick="toggleDayType()">🏋️ Training Day</button>
+                    <div style="margin-top: 15px; color: #374151;" id="nutrition-targets">
+                        Calories: 2,476 | Protein: 265.8g | Carbs: 274.4g | Fat: 43.8g
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Your Exact Meal Plan</h3>
+                    
+                    <div class="meal-card">
+                        <h4>🥣 Breakfast (520 calories, 37.2g protein)</h4>
+                        <div class="food-item">
+                            <h5>Quick Oats</h5>
+                            <div class="food-details"><span>Serving:</span><span id="oats-serving">80g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>304</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">10.4g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Blueberries</h5>
+                            <div class="food-details"><span>Serving:</span><span>100g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>52</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">0.6g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>NZ Muscle Whey Protein</h5>
+                            <div class="food-details"><span>Serving:</span><span>30g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>118</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">22.4g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Psyllium Husk + Calci-Trim Milk</h5>
+                            <div class="food-details"><span>Calories:</span><span>46</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">3.8g</span></div>
+                        </div>
+                        <button class="btn btn-green" onclick="addProtein(37.2)">✓ Log Breakfast (+37.2g)</button>
+                    </div>
+
+                    <div class="meal-card">
+                        <h4>🍗 Lunch (885 calories, 87.6g protein)</h4>
+                        <div class="food-item">
+                            <h5>Cooked Chicken Breast</h5>
+                            <div class="food-details"><span>Serving:</span><span>200g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>330</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">62g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Cooked White Rice</h5>
+                            <div class="food-details"><span>Serving:</span><span>250g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>325</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">6.8g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Steamed Broccoli</h5>
+                            <div class="food-details"><span>Serving:</span><span>100g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>28</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">2.3g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Canned Pineapple + Chobani Yogurt</h5>
+                            <div class="food-details"><span>Calories:</span><span>202</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">16.5g</span></div>
+                        </div>
+                        <button class="btn btn-green" onclick="addProtein(87.6)">✓ Log Lunch (+87.6g)</button>
+                    </div>
+
+                    <div class="meal-card">
+                        <h4>🥘 Dinner (624 calories, 72.9g protein)</h4>
+                        <div class="food-item">
+                            <h5>Cooked Chicken Breast</h5>
+                            <div class="food-details"><span>Serving:</span><span>200g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>330</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">62g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Cooked Potato (no oil)</h5>
+                            <div class="food-details"><span>Serving:</span><span id="potato-serving">200g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>190</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">5g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Mixed Vegetables + Steamed Broccoli</h5>
+                            <div class="food-details"><span>Serving:</span><span>230g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>104</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">5.9g</span></div>
+                        </div>
+                        <button class="btn btn-green" onclick="addProtein(72.9)">✓ Log Dinner (+72.9g)</button>
+                    </div>
+
+                    <div class="meal-card">
+                        <h4>🥜 Snacks (585 calories, 68.1g protein)</h4>
+                        <div class="food-item">
+                            <h5>Wholemeal Snack Wrap</h5>
+                            <div class="food-details"><span>Serving:</span><span>1 wrap</span></div>
+                            <div class="food-details"><span>Calories:</span><span>89</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">4.5g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Medium Eggs</h5>
+                            <div class="food-details"><span>Serving:</span><span>2 eggs</span></div>
+                            <div class="food-details"><span>Calories:</span><span>130</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">11.1g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Liquid Egg White</h5>
+                            <div class="food-details"><span>Serving:</span><span>180g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>84</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">20.1g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>NZ Muscle Whey Protein</h5>
+                            <div class="food-details"><span>Serving:</span><span>20g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>81</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">15.3g</span></div>
+                        </div>
+                        <div class="food-item">
+                            <h5>Chobani Greek Yogurt + Frozen Mango</h5>
+                            <div class="food-details"><span>Serving:</span><span>210g</span></div>
+                            <div class="food-details"><span>Calories:</span><span>201</span></div>
+                            <div class="food-details"><span>Protein:</span><span class="protein-value">17.1g</span></div>
+                        </div>
+                        <button class="btn btn-green" onclick="addProtein(68.1)">✓ Log Snacks (+68.1g)</button>
+                    </div>
+                </div>
+
+                <div class="flame-alert" id="nutrition-flame" style="display: none;">
+                    <div class="flame-title">🔥 Protein Flame Alert</div>
+                    <div class="flame-text">Your discipline chose <span id="current-protein-amount">0</span>g over 265.8g today. Someone who honors their body completes their protein.</div>
+                    <button class="btn btn-small" onclick="addProtein(25)">Add Protein Shake (+25g)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training View -->
+        <div id="training-view" class="hidden">
+            <div class="card">
+                <h2>💪 Training Tracker</h2>
+                
+                <div class="card" style="background: #f0f9ff;">
+                    <h3>Your Weekly Training Split</h3>
+                    <div class="grid">
+                        <div style="background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center;">
+                            <h4>Monday</h4>
+                            <p>LOWER 1<br>13 working sets</p>
+                        </div>
+                        <div style="background: #fff7ed; padding: 15px; border-radius: 8px; text-align: center; border: 2px solid #ea580c;">
+                            <h4>Tuesday</h4>
+                            <p>UPPER (PUSH)<br>14 working sets</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center;">
+                            <h4>Wednesday</h4>
+                            <p>UPPER (PULL)<br>13 working sets</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center;">
+                            <h4>Thursday</h4>
+                            <p>LOWER 2<br>9 working sets</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center;">
+                            <h4>Friday</h4>
+                            <p>UPPER<br>14 working sets</p>
+                        </div>
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; text-align: center;">
+                            <h4>Weekend</h4>
+                            <p>REST DAYS<br>Recovery</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Today's Workout: UPPER (PUSH)</h3>
+                    
+                    <div class="exercise-card" id="exercise-1">
+                        <h4>Machine Chest Press</h4>
+                        <p>Main: Chest | Secondary: Triceps</p>
+                        <div style="color: #6b7280; margin: 10px 0;">6-10 Reps | 3 Working Sets</div>
+                        <div class="set-tracker">
+                            <span>Set 1:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex1-w1">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex1-r1">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(1, 1)">✓</button>
+                        </div>
+                        <div class="set-tracker">
+                            <span>Set 2:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex1-w2">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex1-r2">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(1, 2)">✓</button>
+                        </div>
+                        <div class="set-tracker">
+                            <span>Set 3:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex1-w3">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex1-r3">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(1, 3)">✓</button>
+                        </div>
+                    </div>
+
+                    <div class="exercise-card" id="exercise-2">
+                        <h4>Seated Machine Military Press</h4>
+                        <p>Main: Delts | Secondary: Triceps</p>
+                        <div style="color: #6b7280; margin: 10px 0;">6-10 Reps | 2 Working Sets</div>
+                        <div class="set-tracker">
+                            <span>Set 1:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex2-w1">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex2-r1">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(2, 1)">✓</button>
+                        </div>
+                        <div class="set-tracker">
+                            <span>Set 2:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex2-w2">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex2-r2">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(2, 2)">✓</button>
+                        </div>
+                    </div>
+
+                    <div class="exercise-card" id="exercise-3">
+                        <h4>Standing Cable Lateral Raise</h4>
+                        <p>Main: Delts (Lateral) | Secondary: Traps</p>
+                        <div style="color: #6b7280; margin: 10px 0;">12-15 Reps | 3 Working Sets</div>
+                        <div class="set-tracker">
+                            <span>Set 1:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex3-w1">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex3-r1">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(3, 1)">✓</button>
+                        </div>
+                        <div class="set-tracker">
+                            <span>Set 2:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex3-w2">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex3-r2">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(3, 2)">✓</button>
+                        </div>
+                        <div class="set-tracker">
+                            <span>Set 3:</span>
+                            <input type="number" class="set-input" placeholder="Weight" id="ex3-w3">
+                            <span>kg x</span>
+                            <input type="number" class="set-input" placeholder="Reps" id="ex3-r3">
+                            <button class="btn btn-green btn-small" onclick="markSetComplete(3, 3)">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Session Status</h3>
+                    <button class="btn" id="training-btn" onclick="toggleTraining()">Complete Training Session</button>
+                    <div class="flame-alert" id="training-flame">
+                        <div class="flame-title">🔥 Training Flame Alert</div>
+                        <div class="flame-text">Your discipline chose comfort over growth today. Progressive overload requires consistency.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tim's complete 18 morning questions
+        const morningQuestions = [
+            "Today's message to myself",
+            "Today's top 3 goals/priorities", 
+            "Tasks that absolutely must be done today",
+            "Person(s) I need to connect with today (and how to do it well)",
+            "Write a paragraph mapping out your perfect day today",
+            "Where am I winning at the moment?",
+            "3 things I'm grateful for today are?",
+            "Today I will let go of?",
+            "One thing I can get excited about today is?",
+            "If one word could describe the kind of person I want to be today, then that word is... and why I chose it is...",
+            "Someone who needs me on my A Game today is...",
+            "A situation that might stress me out today or trip me up today could be... And the way my best self would deal with it is...",
+            "Someone I could surprise with a gift, note or a sign of appreciation is...",
+            "One action I could take today to demonstrate excellence or real value",
+            "One bold action I could take today is...",
+            "If I was my own performance coach looking at my life from a high level, I would tell myself to remember that...",
+            "The big projects I have to keep in mind that I want to take on, even if I can't act towards them today, are...",
+            "I would know that today was a great success if at the end of the day I did or felt these things..."
+        ];
+
+        // Application state
+        let appData = {
+            readingCompleted: false,
+            morningCompleted: false,
+            eveningCompleted: false,
+            currentWeight: 105,
+            proteinIntake: 0,
+            trainingCompleted: false,
+            thailandFund: 45000,
+            currentFlame: '',
+            dailyScores: { clarity: 0, energy: 0, necessity: 0, productivity: 0, influence: 0, courage: 0 },
+            isTrainingDay: true,
+            currentQuestionIndex: 0,
+            morningAnswers: [],
+            claudeMessages: [],
+            exerciseData: {}
+        };
+
+        // Initialize app
+        function initializeApp() {
+            const now = new Date();
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+            loadData();
+            updateUI();
+            updateMorningView();
+        }
+
+        // Load/save data
+        function loadData() {
+            const saved = localStorage.getItem('hypertrophy-data');
+            if (saved) appData = {...appData, ...JSON.parse(saved)};
+        }
+
+        function saveData() {
+            localStorage.setItem('hypertrophy-data', JSON.stringify(appData));
+        }
+
+        // Navigation
+        function showView(viewName) {
+            const views = ['dashboard', 'statements', 'morning', 'evening', 'nutrition', 'training'];
+            views.forEach(view => {
+                const element = document.getElementById(view + '-view');
+                if (element) element.classList.add('hidden');
+            });
+            
+            const selectedView = document.getElementById(viewName + '-view');
+            if (selectedView) selectedView.classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (viewName === 'morning') updateMorningView();
+            if (viewName === 'evening') updateEveningView();
+        }
+
+        // Daily reading
+        function completeReading() {
+            appData.readingCompleted = true;
+            saveData();
+            updateUI();
+            showView('dashboard');
+            alert('📖 Daily reading complete! Your statements are aligned.');
+        }
+
+        // Morning ritual functions
+        function updateMorningView() {
+            const questionNumber = document.getElementById('question-number');
+            const questionPercentage = document.getElementById('question-percentage');
+            const questionProgress = document.getElementById('question-progress');
+            const currentQuestion = document.getElementById('current-question');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const flameIdentification = document.getElementById('flame-identification');
+            
+            if (questionNumber && questionPercentage && questionProgress && currentQuestion) {
+                const progress = Math.round(((appData.currentQuestionIndex + 1) / morningQuestions.length) * 100);
+                
+                questionNumber.textContent = appData.currentQuestionIndex + 1;
+                questionPercentage.textContent = progress + '%';
+                questionProgress.style.width = progress + '%';
+                currentQuestion.textContent = morningQuestions[appData.currentQuestionIndex];
+                
+                if (prevBtn) prevBtn.style.display = appData.currentQuestionIndex === 0 ? 'none' : 'block';
+                if (nextBtn) nextBtn.textContent = appData.currentQuestionIndex === morningQuestions.length - 1 ? 'Complete Questions' : 'Next →';
+                
+                if (flameIdentification) {
+                    flameIdentification.style.display = appData.currentQuestionIndex === morningQuestions.length - 1 ? 'block' : 'none';
+                }
+            }
+        }
+
+        function previousQuestion() {
+            if (appData.currentQuestionIndex > 0) {
+                appData.currentQuestionIndex -= 1;
+                updateMorningView();
+            }
+        }
+
+        function nextQuestion() {
+            const answer = document.getElementById('morning-answer');
+            if (answer && answer.value.trim()) {
+                appData.morningAnswers[appData.currentQuestionIndex] = answer.value.trim();
+                
+                if (appData.currentQuestionIndex < morningQuestions.length - 1) {
+                    appData.currentQuestionIndex += 1;
+                    answer.value = appData.morningAnswers[appData.currentQuestionIndex] || '';
+                    updateMorningView();
+                } else {
+                    updateMorningView();
+                }
+                saveData();
+            }
+        }
+
+        function completeMorning() {
+            const flameInput = document.getElementById('flame-input');
+            if (flameInput && flameInput.value.trim()) {
+                appData.currentFlame = flameInput.value.trim();
+                appData.morningCompleted = true;
+                saveData();
+                updateUI();
+                showView('dashboard');
+                alert('🔥 Morning ritual completed! Your flame is identified.');
+            }
+        }
+
+        // Evening ritual functions
+        function updateEveningView() {
+            const flameReflection = document.getElementById('flame-reflection');
+            const eveningFlameText = document.getElementById('evening-flame-text');
+            
+            if (appData.currentFlame && flameReflection && eveningFlameText) {
+                flameReflection.style.display = 'block';
+                eveningFlameText.textContent = appData.currentFlame;
+            }
+        }
+
+        function setScore(domain, score) {
+            appData.dailyScores[domain] = score;
+            saveData();
+            updateUI();
+        }
+
+        function completeEvening() {
+            appData.eveningCompleted = true;
+            saveData();
+            updateUI();
+            showView('dashboard');
+            alert('🌙 Evening ritual completed!');
+        }
+
+        // Nutrition functions
+        function updateProtein() {
+            const proteinInput = document.getElementById('protein-input');
+            if (proteinInput) {
+                appData.proteinIntake = parseInt(proteinInput.value) || 0;
+                saveData();
+                updateUI();
+            }
+        }
+
+        function addProtein(amount) {
+            appData.proteinIntake += amount;
+            document.getElementById('protein-input').value = appData.proteinIntake;
+            saveData();
+            updateUI();
+            if (amount > 20) alert(`✓ +${amount}g protein logged!`);
+        }
+
+        function updateWeight() {
+            const weightInput = document.getElementById('weight-input');
+            if (weightInput) {
+                appData.currentWeight = parseInt(weightInput.value) || 105;
+                saveData();
+                updateUI();
+            }
+        }
+
+        function updateThailand() {
+            const thailandInput = document.getElementById('thailand-input');
+            if (thailandInput) {
+                appData.thailandFund = parseInt(thailandInput.value) || 45000;
+                saveData();
+                updateUI();
+            }
+        }
+
+        function toggleDayType() {
+            appData.isTrainingDay = !appData.isTrainingDay;
+            saveData();
+            updateUI();
+        }
+
+        // Training functions
+        function markSetComplete(exerciseNum, setNum) {
+            const weightInput = document.getElementById(`ex${exerciseNum}-w${setNum}`);
+            const repsInput = document.getElementById(`ex${exerciseNum}-r${setNum}`);
+            
+            if (weightInput.value && repsInput.value) {
+                const exerciseCard = document.getElementById(`exercise-${exerciseNum}`);
+                exerciseCard.classList.add('exercise-complete');
+                
+                // Store the data
+                if (!appData.exerciseData[exerciseNum]) {
+                    appData.exerciseData[exerciseNum] = {};
+                }
+                appData.exerciseData[exerciseNum][setNum] = {
+                    weight: weightInput.value,
+                    reps: repsInput.value
+                };
+                
+                saveData();
+                alert(`✓ Set ${setNum} logged: ${weightInput.value}kg x ${repsInput.value} reps`);
+            }
+        }
+
+        function toggleTraining() {
+            appData.trainingCompleted = !appData.trainingCompleted;
+            saveData();
+            updateUI();
+        }
+
+        // Export function
+        function exportData() {
+            const exportData = {
+                date: new Date().toISOString().split('T')[0],
+                ...appData,
+                averageScore: (Object.values(appData.dailyScores).reduce((a, b) => a + b, 0) / 6).toFixed(1),
+                morningQuestions: morningQuestions,
+                morningAnswers: appData.morningAnswers
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `hypertrophy-data-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            alert('📊 Data exported! Share this file with Claude for weekly analysis.');
+        }
+
+        // UI updates
+        function updateUI() {
+            // Update displays
+            document.getElementById('current-weight').textContent = appData.currentWeight + 'kg';
+            document.getElementById('protein-display').textContent = appData.proteinIntake + 'g';
+            document.getElementById('thailand-display').textContent = '$' + appData.thailandFund.toLocaleString();
+            
+            // Update input fields
+            document.getElementById('protein-input').value = appData.proteinIntake;
+            document.getElementById('weight-input').value = appData.currentWeight;
+            document.getElementById('thailand-input').value = appData.thailandFund;
+            
+            // Update progress bars
+            const weightProgress = Math.round(((105 - appData.currentWeight) / (105 - 98)) * 100);
+            const proteinProgress = Math.round((appData.proteinIntake / 265.8) * 100);
+            const thailandProgress = Math.round((appData.thailandFund / 150000) * 100);
+            
+            document.getElementById('weight-progress').style.width = Math.max(0, weightProgress) + '%';
+            document.getElementById('protein-progress').style.width = Math.min(100, proteinProgress) + '%';
+            document.getElementById('thailand-progress').style.width = Math.min(100, thailandProgress) + '%';
+            
+            // Update status
+            document.getElementById('reading-status').textContent = appData.readingCompleted ? '✅ Complete' : '📖 Not Started';
+            document.getElementById('morning-status').textContent = appData.morningCompleted ? '✅ Complete' : '⏰ Pending';
+            document.getElementById('evening-status').textContent = appData.eveningCompleted ? '✅ Complete' : '⏰ Pending';
+            
+            // Update performance score
+            const scores = Object.values(appData.dailyScores);
+            const average = scores.reduce((a, b) => a + b, 0) / scores.length || 0;
+            document.getElementById('average-score').textContent = average.toFixed(1) + '/5';
+            
+            // Show flame alert
+            const flameAlert = document.getElementById('flame-alert');
+            if (appData.proteinIntake < 265.8 * 0.8 || !appData.trainingCompleted) {
+                flameAlert.style.display = 'block';
+            } else {
+                flameAlert.style.display = 'none';
+            }
+            
+            // Show current flame
+            const flameDisplay = document.getElementById('flame-display');
+            const currentFlameText = document.getElementById('current-flame-text');
+            if (appData.currentFlame) {
+                flameDisplay.style.display = 'block';
+                currentFlameText.textContent = appData.currentFlame;
+            } else {
+                flameDisplay.style.display = 'none';
+            }
+            
+            // Update nutrition adjustments
+            const oatsServing = document.getElementById('oats-serving');
+            const potatoServing = document.getElementById('potato-serving');
+            if (oatsServing && potatoServing) {
+                oatsServing.textContent = appData.isTrainingDay ? '80g' : '60g';
+                potatoServing.textContent = appData.isTrainingDay ? '200g' : '125g';
+            }
+            
+            // Update day toggle
+            const dayToggle = document.getElementById('day-toggle');
+            const nutritionTargets = document.getElementById('nutrition-targets');
+            if (dayToggle) {
+                dayToggle.textContent = appData.isTrainingDay ? '🏋️ Training Day' : '🛌 Rest Day';
+            }
+            if (nutritionTargets) {
+                const calories = appData.isTrainingDay ? '2,476' : '2,223';
+                nutritionTargets.textContent = `Calories: ${calories} | Protein: 265.8g | Carbs: 274.4g | Fat: 43.8g`;
+            }
+            
+            // Update training status
+            const trainingBtn = document.getElementById('training-btn');
+            const trainingFlame = document.getElementById('training-flame');
+            if (trainingBtn && trainingFlame) {
+                if (appData.trainingCompleted) {
+                    trainingBtn.textContent = '✅ Session Complete';
+                    trainingBtn.style.background = '#16a34a';
+                    trainingFlame.style.display = 'none';
+                } else {
+                    trainingBtn.textContent = 'Complete Training Session';
+                    trainingBtn.style.background = '#ea580c';
+                    trainingFlame.style.display = 'block';
+                }
+            }
+            
+            // Update nutrition flame
+            const nutritionFlame = document.getElementById('nutrition-flame');
+            const currentProteinAmount = document.getElementById('current-protein-amount');
+            if (nutritionFlame && currentProteinAmount) {
+                if (appData.proteinIntake < 265.8 * 0.8) {
+                    nutritionFlame.style.display = 'block';
+                    currentProteinAmount.textContent = appData.proteinIntake;
+                } else {
+                    nutritionFlame.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
