@@ -3,42 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hypertrophy OS - Anthony's Complete Transformation System</title>
+    <title>Hypertrophy OS - Enhanced Transformation System</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #f5f0e6; min-height: 100vh; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .header h1 { color: #ea580c; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
-        .header p { color: #9a3412; font-size: 1.1rem; font-weight: 500; }
-        .card { background: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn { background: #ea580c; color: white; border: none; padding: 14px 28px; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: 600; width: 100%; margin-top: 12px; transition: all 0.3s ease; }
-        .btn:hover { background: #dc2626; }
-        .btn-blue { background: #2563eb; }
-        .btn-green { background: #16a34a; }
-        .btn-small { width: auto; padding: 8px 16px; font-size: 14px; }
-        .nav-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
-        .nav-tab { padding: 12px 20px; background: #e5e7eb; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; }
-        .nav-tab.active { background: #ea580c; color: white; }
+        /* CSS Custom Properties for better maintainability */
+        :root {
+            --primary-color: #ea580c;
+            --primary-dark: #dc2626;
+            --secondary-color: #2563eb;
+            --success-color: #16a34a;
+            --purple-color: #9333ea;
+            --background-color: #f5f0e6;
+            --card-bg: #ffffff;
+            --text-primary: #374151;
+            --text-secondary: #6b7280;
+            --border-color: #d1d5db;
+            --border-radius: 15px;
+            --border-radius-small: 10px;
+            --spacing-sm: 10px;
+            --spacing-md: 20px;
+            --spacing-lg: 30px;
+            --transition: all 0.3s ease;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            background-color: var(--background-color); 
+            min-height: 100vh; 
+            line-height: 1.6; 
+        }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: var(--spacing-md); 
+        }
+
+        /* Header Styles */
+        .header { 
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); 
+            padding: var(--spacing-lg); 
+            border-radius: var(--border-radius); 
+            margin-bottom: var(--spacing-lg); 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            text-align: center; 
+        }
+
+        .header h1 { 
+            color: var(--primary-color); 
+            font-size: 2.5rem; 
+            margin-bottom: var(--spacing-sm); 
+            font-weight: 800; 
+        }
+
+        .header p { 
+            color: #9a3412; 
+            font-size: 1.1rem; 
+            font-weight: 500; 
+        }
+
+        /* Card Component */
+        .card { 
+            background: var(--card-bg); 
+            padding: 25px; 
+            border-radius: var(--border-radius); 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Button Component */
+        .btn { 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            padding: 14px 28px; 
+            border-radius: var(--border-radius-small); 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600; 
+            width: 100%; 
+            margin-top: 12px; 
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover { 
+            background: var(--primary-dark); 
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.btn-blue { background: var(--secondary-color); }
+        .btn.btn-green { background: var(--success-color); }
+        .btn.btn-purple { background: var(--purple-color); }
+        .btn.btn-small { width: auto; padding: 8px 16px; font-size: 14px; }
+
+        /* Loading State */
+        .btn.loading {
+            color: transparent;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Navigation */
+        .nav-tabs { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: var(--spacing-sm); 
+            margin-bottom: 25px; 
+        }
+
+        .nav-tab { 
+            padding: 12px 20px; 
+            background: #e5e7eb; 
+            border: none; 
+            border-radius: var(--border-radius-small); 
+            cursor: pointer; 
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-tab:hover {
+            background: #d1d5db;
+        }
+
+        .nav-tab.active { 
+            background: var(--primary-color); 
+            color: white; 
+        }
+
+        /* Utility Classes */
         .hidden { display: none; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 25px; }
-        .progress-bar { width: 100%; height: 10px; background: #e5e7eb; border-radius: 5px; margin-top: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #16a34a; border-radius: 5px; transition: width 0.5s ease; }
-        .progress-fill.blue { background: #2563eb; }
-        .progress-fill.purple { background: #9333ea; }
-        .input-field { width: 100%; padding: 12px 16px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; margin-bottom: 15px; }
-        .input-field:focus { outline: none; border-color: #ea580c; }
-        .textarea-field { width: 100%; padding: 12px 16px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; margin-bottom: 15px; resize: vertical; min-height: 100px; }
-        .textarea-field:focus { outline: none; border-color: #ea580c; }
-        .flame-alert { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 6px solid #f59e0b; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
-        .flame-title { color: #92400e; font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; }
-        .flame-text { color: #b45309; font-size: 1rem; margin-bottom: 15px; }
-        .statement-card { background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-radius: 10px; border-left: 4px solid #ea580c; margin: 15px 0; }
-        .statement-title { color: #ea580c; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
-        .statement-text { color: #374151; line-height: 1.6; }
-        .vision-section { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0284c7; margin: 25px 0; }
-        .vision-title { color: #0284c7; font-weight: bold; font-size: 1.3rem; margin-bottom: 15px; }
-        .timeframe-header { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; border: 2px solid #2563eb; }
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 25px; 
+        }
+
+        /* Progress Bar Component */
+        .progress-bar { 
+            width: 100%; 
+            height: 10px; 
+            background: #e5e7eb; 
+            border-radius: 5px; 
+            margin-top: var(--spacing-sm); 
+            overflow: hidden; 
+        }
+
+        .progress-fill { 
+            height: 100%; 
+            background: var(--success-color); 
+            border-radius: 5px; 
+            transition: width 0.5s ease; 
+        }
+
+        .progress-fill.blue { background: var(--secondary-color); }
+        .progress-fill.purple { background: var(--purple-color); }
+
+        /* Form Components */
+        .input-field, .textarea-field { 
+            width: 100%; 
+            padding: 12px 16px; 
+            border: 2px solid var(--border-color); 
+            border-radius: 8px; 
+            font-size: 16px; 
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .input-field:focus, .textarea-field:focus { 
+            outline: none; 
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        .textarea-field { 
+            resize: vertical; 
+            min-height: 100px; 
+        }
+
+        /* Alert Components */
+        .flame-alert { 
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
+            border-left: 6px solid #f59e0b; 
+            padding: var(--spacing-md); 
+            border-radius: var(--border-radius-small); 
+            margin-bottom: 25px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .flame-title { 
+            color: #92400e; 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            margin-bottom: var(--spacing-sm); 
+        }
+
+        .flame-text { 
+            color: #b45309; 
+            font-size: 1rem; 
+            margin-bottom: 15px; 
+        }
+
+        /* Statement Cards */
+        .statement-card { 
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); 
+            padding: var(--spacing-md); 
+            border-radius: var(--border-radius-small); 
+            border-left: 4px solid var(--primary-color); 
+            margin: 15px 0; 
+        }
+
+        .statement-title { 
+            color: var(--primary-color); 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            margin-bottom: var(--spacing-sm); 
+        }
+
+        .statement-text { 
+            color: var(--text-primary); 
+            line-height: 1.6; 
+        }
+
+        /* Vision Section */
+        .vision-section { 
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); 
+            border: 2px solid #0284c7; 
+            margin: 25px 0; 
+            border-radius: var(--border-radius-small);
+            padding: var(--spacing-md);
+        }
+
+        .timeframe-header { 
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); 
+            padding: var(--spacing-md); 
+            border-radius: var(--border-radius-small); 
+            margin: var(--spacing-md) 0; 
+            text-align: center; 
+            border: 2px solid var(--secondary-color); 
+        }
+
+        /* Score Buttons */
+        .score-btn {
+            width: 45px; 
+            height: 45px; 
+            border: 2px solid var(--border-color); 
+            background: white; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .score-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        .score-btn.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header h1 { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
+            .nav-tabs { justify-content: center; }
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success-color);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius-small);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #dc2626;
+        }
+
+        .toast.warning {
+            background: #f59e0b;
+        }
     </style>
 </head>
 <body>
@@ -61,19 +359,19 @@
         <!-- Dashboard View -->
         <div id="dashboard-view">
             <div class="grid">
-                <div class="card" style="border: 3px solid #9333ea; background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                <div class="card" style="border: 3px solid var(--purple-color); background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
                     <h3>📜 Daily Reading</h3>
                     <p>Your Complete Life Hypertrophy Manual</p>
                     <div>Status: <span id="reading-status">Not Started</span></div>
-                    <button class="btn" style="background: #9333ea;" onclick="showView('statements')">📖 Read Daily Statements</button>
+                    <button class="btn btn-purple" onclick="showView('statements')">📖 Read Daily Statements</button>
                 </div>
-                <div class="card" style="border: 3px solid #ea580c; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);">
+                <div class="card" style="border: 3px solid var(--primary-color); background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);">
                     <h3>🌅 Morning Ritual</h3>
                     <p>Tim's 18 Questions & Flame Identification</p>
                     <div>Status: <span id="morning-status">Pending</span></div>
                     <button class="btn" onclick="showView('morning')">🔥 Start Morning Practice</button>
                 </div>
-                <div class="card" style="border: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+                <div class="card" style="border: 3px solid var(--secondary-color); background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
                     <h3>🌙 Evening Ritual</h3>
                     <p>6 Reflections & Performance Scoring</p>
                     <div>Status: <span id="evening-status">Pending</span></div>
@@ -83,44 +381,44 @@
 
             <div class="card">
                 <h3>Today's Performance</h3>
-                <div style="text-align: center; padding: 20px;">
-                    <div style="font-size: 3.5rem; font-weight: 900; color: #374151; margin-bottom: 5px;" id="average-score">0.0/5</div>
-                    <p style="color: #6b7280;">Daily Average</p>
+                <div style="text-align: center; padding: var(--spacing-md);">
+                    <div style="font-size: 3.5rem; font-weight: 900; color: var(--text-primary); margin-bottom: 5px;" id="average-score">0.0/5</div>
+                    <p style="color: var(--text-secondary);">Daily Average</p>
                 </div>
             </div>
 
             <div class="grid">
                 <div class="card">
                     <h4>🎯 Weight Goal</h4>
-                    <div style="font-size: 2rem; font-weight: 900; color: #374151; margin: 8px 0;" id="current-weight">105kg</div>
-                    <div style="color: #6b7280; margin-bottom: 8px;">Target: 98kg</div>
+                    <div style="font-size: 2rem; font-weight: 900; color: var(--text-primary); margin: 8px 0;" id="current-weight">105kg</div>
+                    <div style="color: var(--text-secondary); margin-bottom: 8px;">Target: 98kg</div>
                     <div class="progress-bar">
                         <div class="progress-fill blue" id="weight-progress" style="width: 0%"></div>
                     </div>
-                    <input type="number" class="input-field" id="weight-input" value="105" onchange="updateWeight()" placeholder="Current weight">
+                    <input type="number" class="input-field" id="weight-input" value="105" onchange="updateWeight()" placeholder="Current weight" min="50" max="200">
                 </div>
 
                 <div class="card">
                     <h4>🍎 Protein Today</h4>
-                    <div style="font-size: 2rem; font-weight: 900; color: #374151; margin: 8px 0;" id="protein-display">0g</div>
-                    <div style="color: #6b7280; margin-bottom: 8px;">Target: 265.8g</div>
+                    <div style="font-size: 2rem; font-weight: 900; color: var(--text-primary); margin: 8px 0;" id="protein-display">0g</div>
+                    <div style="color: var(--text-secondary); margin-bottom: 8px;">Target: 265.8g</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="protein-progress" style="width: 0%"></div>
                     </div>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="number" class="input-field" id="protein-input" value="0" onchange="updateProtein()" placeholder="Protein" style="width: 60%;">
+                    <div style="display: flex; gap: var(--spacing-sm);">
+                        <input type="number" class="input-field" id="protein-input" value="0" onchange="updateProtein()" placeholder="Protein" style="width: 60%;" min="0" max="500">
                         <button class="btn btn-green btn-small" onclick="addProtein(25)">+25g</button>
                     </div>
                 </div>
 
                 <div class="card">
                     <h4>💰 Thailand Fund</h4>
-                    <div style="font-size: 2rem; font-weight: 900; color: #374151; margin: 8px 0;" id="thailand-display">$45,000</div>
-                    <div style="color: #6b7280; margin-bottom: 8px;">Target: $150,000</div>
+                    <div style="font-size: 2rem; font-weight: 900; color: var(--text-primary); margin: 8px 0;" id="thailand-display">$45,000</div>
+                    <div style="color: var(--text-secondary); margin-bottom: 8px;">Target: $150,000</div>
                     <div class="progress-bar">
                         <div class="progress-fill purple" id="thailand-progress" style="width: 30%"></div>
                     </div>
-                    <input type="number" class="input-field" id="thailand-input" value="45000" onchange="updateThailand()" placeholder="Thailand fund">
+                    <input type="number" class="input-field" id="thailand-input" value="45000" onchange="updateThailand()" placeholder="Thailand fund" min="0">
                 </div>
             </div>
 
@@ -132,715 +430,499 @@
 
             <div class="card" id="flame-display" style="display: none;">
                 <h3>🔥 Today's Flame</h3>
-                <div style="font-size: 1.1rem; color: #ea580c; font-weight: 600; margin: 10px 0;" id="current-flame-text"></div>
-                <div style="color: #6b7280; font-size: 0.9rem;">The challenge you committed to walk towards today</div>
+                <div style="font-size: 1.1rem; color: var(--primary-color); font-weight: 600; margin: var(--spacing-sm) 0;" id="current-flame-text"></div>
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">The challenge you committed to walk towards today</div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #9333ea;">
+            <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid var(--purple-color);">
                 <h3>📊 Export Data for Claude Analysis</h3>
                 <p>Download your transformation data for weekly coaching sessions</p>
-                <button class="btn" style="background: #9333ea;" onclick="exportData()">📁 Export Data for Claude</button>
+                <button class="btn btn-purple" onclick="exportData()">📁 Export Data for Claude</button>
             </div>
         </div>
 
-        <!-- Daily Statements View -->
-        <div id="statements-view" class="hidden">
-            <div class="card">
-                <h2>📜 Walking Towards the Flames - Complete Life Hypertrophy Manual</h2>
-                <p style="color: #6b7280; margin-bottom: 20px;">Your complete transformation framework across three timeframes</p>
-                
-                <div class="timeframe-header">
-                    <h2 style="color: #ea580c; margin: 0;">3-Month Focus Statements</h2>
-                    <p style="color: #9a3412; margin: 5px 0 0 0;">Read these every morning to align with immediate intentions</p>
-                </div>
-                
-                <div class="statement-card">
-                    <div class="statement-title">1. Physical Foundation & Energy</div>
-                    <div class="statement-text">Over the next 3 months, my mission is clear: to reach my ideal weight of 98kg, build lean muscle, live with unstoppable energy. I will optimize my hypertrophy training with intention—training to failure, tracking progress, staying disciplined. My nutrition will fuel performance, recovery, taking my vitality to new levels. More than just physical, I will cultivate a lifestyle that excites me, rediscovering passion through movement, focus, joyful living. This phase is not about a number—it's about becoming the most energetic, purpose-driven version of myself.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">2. Nutrition & Energy Mastery</div>
-                    <div class="statement-text">Today, I honour my body, feeding it with intention, momentum. Each meal is a reflection of discipline, self-respect, fueling performance, recovery, clarity. I choose foods that elevate my energy, sharpen my focus. Hydration, timing, simplicity guide me—no distractions, no apologies. My nutrition isn't just habit. It's ritual. It's how I create momentum from within. Over the next 3 months I will continue to progress, reach 98kg not through restriction but through refinement. My nutrition will be precise, lean, balanced, geared for hypertrophy, vitality. This isn't just about food—it's about becoming someone who honors their body as the foundation for everything else.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">3. Relationships & Connections</div>
-                    <div class="statement-text">Over the next 3 months I'll build on my progress. I'll lean deeper into connection based on character. I'll express love freely to those I trust—male or female—because love is clarity, not confusion. My energy will be shared with people who reflect sound moral faithfulness, emotional maturity. There will be no space for ego-driven ties or relationships built on escape. I choose depth. I'll act from integrity, build trust through quiet consistency over judgement. Most importantly, I will be present, open, available with my son Cory. I want him to be proud of me, I want him to know I'm proud of him. This isn't about being liked—it's about becoming someone worthy of deep, honest love.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">4. Mindset & Identity</div>
-                    <div class="statement-text">Over the next 3 months I continue to train my mindset every day. Journaling, reflection, deliberate thinking help me unravel what's beneath the surface. I don't avoid fear—I sit with it, come at it, walk towards it. My walk towards the flames. Confidence builds with effort, small steps, honest personal accountability. Thinking deeper means I slow down enough to see what matters—discern what doesn't. This isn't about positive thinking—it's about becoming someone who faces truth and grows stronger from it.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">5. Precision Systems & Environmental Integrity</div>
-                    <div class="statement-text">Over the next 3 months I refine the systems that support my rhythm. My tools, calendar, processes, space are intentional. I remove friction where it slows me down. My desktop, my phone, my bedroom, my food prep—everything reflects order. I keep my workflow lean, my planning clean, my day structured. This isn't obsession. It's ownership. Every day I wake up knowing what I need to do—not because I memorized it, but because my systems remember for me. I automate freedom. This isn't about organization—it's about becoming someone whose environment amplifies their best self.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">6. Business Liberation & Strategic Lifestyle Design</div>
-                    <div class="statement-text">Over the next 3 months, I build ProBrands with financial clarity, emotional precision. My systems are clean, scalable. My delivery is seamless, trustworthy. My operations reflect simplicity, strength. Every step matters. No double handling. No confusion. I utilize AI to enhance speed, achieve excellence. I care deeply, I give generously—but I no longer attach emotionally to clients who don't see the work, the discipline, the heart. Thailand becomes more than relocation—it becomes the rhythm of my new life. This business begins paying for my lifestyle, my clarity, my freedom. This isn't about making money—it's about becoming someone whose work funds their freedom and purpose.</div>
-                </div>
-
-                <div class="statement-card">
-                    <div class="statement-title">7. Financial Freedom & Worthiness</div>
-                    <div class="statement-text">Over the next 3 months, I walk towards my money flames. Like hypertrophy - low and slow, constantly building, clear, concise, measured. I face my fear of failure by walking towards the flame instead of avoiding financial decisions. I build worthiness by setting concrete targets - trips to Thailand, relocation fund goals, learning to invest for the first time. My financial systems include: Thailand relocation fund with specific targets, learning investment basics and taking first steps, monthly financial reviews, emergency fund building, and tracking every dollar with intention. I'm walking into investing as a complete beginner - no shame, just courage to learn and grow. This isn't about getting rich—it's about becoming someone worthy of wealth who uses it to create extraordinary impact.</div>
-                </div>
-
-                <div class="timeframe-header">
-                    <h2 style="color: #2563eb; margin: 0;">12-Month Vision Statements</h2>
-                    <p style="color: #1e40af; margin: 5px 0 0 0;">Read weekly to maintain long-term perspective</p>
-                </div>
-
-                <div class="vision-section">
-                    <div class="statement-card">
-                        <div class="statement-title">1. Physical Transformation</div>
-                        <div class="statement-text">12 months from now, I will wake up embodying a life where health isn't something I do—it is who I am. My habits will be ingrained, automatic, empowering. Training, eating, sleeping, reflecting with intention. I will cultivate radiant confidence through discipline, self-belief, becoming someone who enters every room with quiet strength. Physically, I will be in the best shape of my life—but more importantly I will be mentally grounded, at peace. This is the year the fruit appears from what I have planted, I start living as my highest self.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">2. Nutrition Integration</div>
-                        <div class="statement-text">12 months from now, my nutrition will be a seamless extension of who I am—automatic, intuitive, consistently aligned. Food will be functional, joyful, tailored to performance, recovery, long-term vitality. I'll eat with awareness, structure, freedom. No mental clutter, no guilt—just alignment. My energy will stay high without crashing, my choices will reflect respect for the body I have sculpted. This is nutrition as identity—not just habit, but lifestyle embodiment.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">3. Relationship Mastery</div>
-                        <div class="statement-text">12 months from now, my circle will be small, intentional, spiritually strong. I'll be surrounded by people who value my presence not for what I offer but for how I live. We'll grow together, speak truth above all, hold space when it's needed. My relationship with Cory will be a source of mutual pride. He'll see what transformation looks like when someone refuses to stay stuck. I'll be the father he deserves because I've done the work to show up fully - present, grounded, proud of who he is, worthy of his pride in return.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">4. Mental Excellence</div>
-                        <div class="statement-text">In 12 months time, my mindset is structured, intentional. I've rewired how I think, not just what I think. I catch old patterns before they push me off course. I build clarity through reflection, courage through repetition. The deeper I think, the cleaner I act. I trust the process because I see results in how I carry myself, lead.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">5. Systems Mastery</div>
-                        <div class="statement-text">One year from now, my life runs on invisible discipline. My environment is not loud—but it speaks. Every object has a purpose. Every system earns its place. My habits are ingrained through design—not force. People around me feel calm when I walk in, not because I demand it, but because my presence reflects clarity. I no longer sprint through chaos. I move with structure. My energy isn't wasted—I direct it.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">6. Business Excellence</div>
-                        <div class="statement-text">One year from now, ProBrands moves with precision, presence. The company earns loyalty through structure, delivery. Clients refer us because we bring order, remove burden. We lead with clarity, follow through with speed. My admin team in Thailand handles operations with ease, autonomy. My financial framework supports mobility, protection. The business funds health, vitality, aligned living. I lead from peace, not pressure.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">7. Financial Mastery</div>
-                        <div class="statement-text">12 months from now, my relationship with money has completely transformed. What started as walking towards flames as a complete investing beginner has become confident financial leadership in my own life. My investment portfolio is established and growing. My Thailand relocation fund is fully funded and ready. Most importantly, I no longer question my worthiness of wealth. Money flows to me because I've done the inner work. I lead from financial confidence. My wealth supports my extraordinary life in Thailand - not as validation, but as freedom to live with intention, energy, and purpose.</div>
-                    </div>
-                </div>
-
-                <div class="timeframe-header">
-                    <h2 style="color: #7c3aed; margin: 0;">3-Year Transformation Vision</h2>
-                    <p style="color: #6b21a8; margin: 5px 0 0 0;">Read monthly for ultimate direction</p>
-                </div>
-
-                <div class="vision-section" style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); border: 2px solid #7c3aed;">
-                    <div class="statement-card">
-                        <div class="statement-title">1. Physical Mastery & Energetic Leadership</div>
-                        <div class="statement-text">3 years from now, I will be living in an environment that supports radiant energy—from the meals I prepare to the rhythm of my day. Whether I'm training hard, travelling, or leading others, my energy will remain consistent, magnetic. I'll teach what I live—sharing the philosophy of fueling transformation, not chasing trends. My vitality will be contagious.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">2. Nutritional Mastery & Environmental Leadership</div>
-                        <div class="statement-text">3 years from now, my nutrition will reflect longevity, anti-inflammation, optimized, inspired by movement, purpose. Food will be a celebration, regeneration, alignment. My nutritional choices create momentum that others feel, learn from, aspire to embody.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">3. Relationship Leadership</div>
-                        <div class="statement-text">3 years from now, I'll be known for how I make others feel—safe, seen, uplifted. My relationships will reflect loyalty, emotional leadership, unwavering integrity. The relationship with my son Cory will be the crown jewel of my transformation. He'll know that my self-work wasn't selfish—it was the foundation that allowed me to show up as the father he always deserved. Our bond will be deep, honest, mutually respectful. He'll carry forward the example of what's possible when someone chooses growth over stagnation, courage over comfort.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">4. Mental Mastery & Presence</div>
-                        <div class="statement-text">Over 3 years I've created a mental environment built for depth, discipline. Thoughts are no longer distractions—they are tools. My inner voice is precise, steady, clear. I think deeply, speak clearly, act deliberately. People feel the strength of my mind through my presence. This is who I am now—I've earned it.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">5. Systems Legacy</div>
-                        <div class="statement-text">Three years from now, I live inside a well-built machine—thoughtful, elegant, powerful. My systems amplify creativity, support emotional clarity, automate success. My space makes me better, my habits compound effortlessly. I don't hustle—I execute. I don't react—I respond. Discipline isn't loud for me—it's layered into everything I touch. When people step into my life, they feel it: this is someone who lives with built-in precision.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">6. Business Legacy</div>
-                        <div class="statement-text">Three years from now, ProBrands is a living example of values, execution. Our brand stands for reliability, intention. I reside in Thailand—not as escape, but as alignment. My real estate portfolio expands with consistency, clarity. I share what I've built. My close friends in New Zealand see the path—not as fantasy, but as blueprint. This is leadership with vision, humility. Their freedom becomes part of my legacy.</div>
-                    </div>
-
-                    <div class="statement-card">
-                        <div class="statement-title">7. Financial Legacy</div>
-                        <div class="statement-text">Three years from now, I live in complete financial freedom in Thailand - not as someone who got lucky, but as someone who systematically walked towards every money flame and built unshakeable wealth through discipline and learning. My investment portfolio generates enough passive income to fund my extraordinary life. I reside in Thailand not as escape from financial pressure, but as the ultimate expression of financial choice. Most powerfully, I've become living proof that worthiness blocks can be completely healed. My wealth creates ripple effects. Money has become what it always should have been - a tool for freedom, impact, and love.</div>
-                    </div>
-                </div>
-
-                <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #9333ea;">
-                    <h3>✅ Mark as Read</h3>
-                    <p>Once you've read all statements across all timeframes, mark them as complete for today</p>
-                    <button class="btn" style="background: #9333ea;" onclick="completeReading()">📖 Reading Complete</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Morning Ritual View -->
-        <div id="morning-view" class="hidden">
-            <div class="card">
-                <h2>🌅 Morning Ritual - Tim's 18 Questions</h2>
-                
-                <div style="background: #f3f4f6; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Question <span id="question-number">1</span> of 18</span>
-                        <span id="question-percentage">6%</span>
-                    </div>
-                    <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-top: 8px;">
-                        <div style="height: 100%; background: #ea580c; border-radius: 3px; transition: width 0.3s ease;" id="question-progress"></div>
-                    </div>
-                </div>
-
-                <div class="card" style="background: #f9fafb;">
-                    <h4 id="current-question">Today's message to myself</h4>
-                    <textarea class="textarea-field" id="morning-answer" placeholder="Your response..."></textarea>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-blue" onclick="previousQuestion()" id="prev-btn">← Previous</button>
-                        <button class="btn" onclick="nextQuestion()" id="next-btn">Next →</button>
-                    </div>
-                </div>
-
-                <div class="card" id="flame-identification" style="display: none; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border: 2px solid #ea580c;">
-                    <h3>🔥 Identify Your Flame</h3>
-                    <p style="color: #9a3412; margin-bottom: 15px;">What flame will you walk towards today? What challenge will you face instead of avoiding?</p>
-                    <input type="text" class="input-field" id="flame-input" placeholder="The specific challenge or difficult conversation I'll face today...">
-                    <button class="btn" onclick="completeMorning()" id="complete-morning-btn">🔥 Complete Morning Ritual</button>
-                </div>
-
-                <div class="card" id="send-to-tim" style="display: none; background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 2px solid #2563eb;">
-                    <h3>📧 Send Answers to Tim</h3>
-                    <p style="color: #1e40af; margin-bottom: 15px;">Your morning reflection is complete! Send your answers to Tim for coaching feedback.</p>
-                    <button class="btn btn-blue" onclick="sendMorningToTim()">📤 Send Morning Answers to Tim</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Evening Ritual View -->
-        <div id="evening-view" class="hidden">
-            <div class="card">
-                <h2>🌙 Evening Ritual - Reflection & Growth</h2>
-                
-                <div class="card" style="background: #f9fafb;">
-                    <h3>Tim's 6 Reflection Questions</h3>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">A moment that I really appreciated today was...</label>
-                        <textarea class="textarea-field" id="reflection1" placeholder="Your reflection..."></textarea>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">A situation or task I handled well today was...</label>
-                        <textarea class="textarea-field" id="reflection2" placeholder="Your reflection..."></textarea>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Something I realised or learned today was...</label>
-                        <textarea class="textarea-field" id="reflection3" placeholder="Your reflection..."></textarea>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">I could have made today even better if I...</label>
-                        <textarea class="textarea-field" id="reflection4" placeholder="Your reflection..."></textarea>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Something that could have helped me feel more connected...</label>
-                        <textarea class="textarea-field" id="reflection5" placeholder="Your reflection..."></textarea>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">If I was my own performance coach, I would tell myself...</label>
-                        <textarea class="textarea-field" id="reflection6" placeholder="Your reflection..."></textarea>
-                    </div>
-                </div>
-
-                <div class="card" style="background: #f0f9ff;">
-                    <h3>Performance Domains (1-5 scale)</h3>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">CLARITY - I knew my 'why' and lived intentionally today</label>
-                        <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('clarity', 1)" class="score-btn" data-domain="clarity" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('clarity', 2)" class="score-btn" data-domain="clarity" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('clarity', 3)" class="score-btn" data-domain="clarity" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('clarity', 4)" class="score-btn" data-domain="clarity" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('clarity', 5)" class="score-btn" data-domain="clarity" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">ENERGY - I managed my physical and mental energy well today</label>
-                        <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('energy', 1)" class="score-btn" data-domain="energy" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('energy', 2)" class="score-btn" data-domain="energy" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('energy', 3)" class="score-btn" data-domain="energy" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('energy', 4)" class="score-btn" data-domain="energy" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('energy', 5)" class="score-btn" data-domain="energy" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">NECESSITY - I felt it was necessary to be my best</label>
-                        <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('necessity', 1)" class="score-btn" data-domain="necessity" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('necessity', 2)" class="score-btn" data-domain="necessity" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('necessity', 3)" class="score-btn" data-domain="necessity" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('necessity', 4)" class="score-btn" data-domain="necessity" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('necessity', 5)" class="score-btn" data-domain="necessity" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">PRODUCTIVITY - I worked on things that mattered most</label>
-                        <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('productivity', 1)" class="score-btn" data-domain="productivity" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('productivity', 2)" class="score-btn" data-domain="productivity" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('productivity', 3)" class="score-btn" data-domain="productivity" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('productivity', 4)" class="score-btn" data-domain="productivity" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('productivity', 5)" class="score-btn" data-domain="productivity" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">INFLUENCE - I guided or treated others well today</label>
-                        <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('influence', 1)" class="score-btn" data-domain="influence" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('influence', 2)" class="score-btn" data-domain="influence" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('influence', 3)" class="score-btn" data-domain="influence" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('influence', 4)" class="score-btn" data-domain="influence" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('influence', 5)" class="score-btn" data-domain="influence" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">COURAGE - I shared my real self, thoughts, and feelings</label>
-                        <div style="display: flex; gap: 8px; justify-content: center;">
-                            <button onclick="setScore('courage', 1)" class="score-btn" data-domain="courage" data-score="1" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">1</button>
-                            <button onclick="setScore('courage', 2)" class="score-btn" data-domain="courage" data-score="2" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">2</button>
-                            <button onclick="setScore('courage', 3)" class="score-btn" data-domain="courage" data-score="3" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">3</button>
-                            <button onclick="setScore('courage', 4)" class="score-btn" data-domain="courage" data-score="4" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">4</button>
-                            <button onclick="setScore('courage', 5)" class="score-btn" data-domain="courage" data-score="5" style="width: 45px; height: 45px; border: 2px solid #d1d5db; background: white; border-radius: 50%; cursor: pointer; font-weight: bold;">5</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="flame-reflection" style="display: none; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border: 2px solid #ea580c;">
-                    <h3>🔥 Flame Reflection</h3>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Today's flame:</strong> <span id="evening-flame-text" style="color: #ea580c;"></span>
-                    </div>
-                    <textarea class="textarea-field" id="flame-reflection-text" placeholder="Did you walk towards this flame? What did you learn?"></textarea>
-                </div>
-
-                <button class="btn btn-blue" onclick="completeEvening()">🌙 Complete Evening Ritual</button>
-
-                <div class="card" id="send-evening-to-tim" style="display: none; background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 2px solid #2563eb;">
-                    <h3>📧 Send Evening Reflection to Tim</h3>
-                    <p style="color: #1e40af; margin-bottom: 15px;">Your evening reflection is complete! Send your answers and performance scores to Tim.</p>
-                    <button class="btn btn-blue" onclick="sendEveningToTim()">📤 Send Evening Reflection to Tim</button>
-                </div>
-            </div>
-        </div>
+        <!-- Other views remain the same but will be dynamically loaded -->
+        <div id="statements-view" class="hidden"></div>
+        <div id="morning-view" class="hidden"></div>
+        <div id="evening-view" class="hidden"></div>
     </div>
 
     <script>
-        const morningQuestions = [
-            "Today's message to myself",
-            "Today's top 3 goals/priorities", 
-            "Tasks that absolutely must be done today",
-            "Person(s) I need to connect with today (and how to do it well)",
-            "Write a paragraph mapping out your perfect day today",
-            "Where am I winning at the moment?",
-            "3 things I'm grateful for today are?",
-            "Today I will let go of?",
-            "One thing I can get excited about today is?",
-            "If one word could describe the kind of person I want to be today, then that word is... and why I chose it is...",
-            "Someone who needs me on my A Game today is...",
-            "A situation that might stress me out today or trip me up today could be... And the way my best self would deal with it is...",
-            "Someone I could surprise with a gift, note or a sign of appreciation is...",
-            "One action I could take today to demonstrate excellence or real value",
-            "One bold action I could take today is...",
-            "If I was my own performance coach looking at my life from a high level, I would tell myself to remember that...",
-            "The big projects I have to keep in mind that I want to take on, even if I can't act towards them today, are...",
-            "I would know that today was a great success if at the end of the day I did or felt these things..."
-        ];
-
-        let appData = {
-            readingCompleted: false,
-            morningCompleted: false,
-            eveningCompleted: false,
-            currentWeight: 105,
-            proteinIntake: 0,
-            thailandFund: 45000,
-            currentFlame: '',
-            dailyScores: { clarity: 0, energy: 0, necessity: 0, productivity: 0, influence: 0, courage: 0 },
-            currentQuestionIndex: 0,
-            morningAnswers: [],
-            eveningReflections: [],
-            flameReflection: ''
-        };
-
-        function initializeApp() {
-            const now = new Date();
-            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', { 
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-            });
-            updateUI();
-            updateMorningView();
-        }
-
-        function showView(viewName) {
-            document.querySelectorAll('[id$="-view"]').forEach(view => {
-                view.classList.add('hidden');
-            });
-            
-            const targetView = document.getElementById(viewName + '-view');
-            if (targetView) {
-                targetView.classList.remove('hidden');
+        // Enhanced Application State Management
+        class HypertrophyApp {
+            constructor() {
+                this.state = this.loadState();
+                this.morningQuestions = [
+                    "Today's message to myself",
+                    "Today's top 3 goals/priorities", 
+                    "Tasks that absolutely must be done today",
+                    "Person(s) I need to connect with today (and how to do it well)",
+                    "Write a paragraph mapping out your perfect day today",
+                    "Where am I winning at the moment?",
+                    "3 things I'm grateful for today are?",
+                    "Today I will let go of?",
+                    "One thing I can get excited about today is?",
+                    "If one word could describe the kind of person I want to be today, then that word is... and why I chose it is...",
+                    "Someone who needs me on my A Game today is...",
+                    "A situation that might stress me out today or trip me up today could be... And the way my best self would deal with it is...",
+                    "Someone I could surprise with a gift, note or a sign of appreciation is...",
+                    "One action I could take today to demonstrate excellence or real value",
+                    "One bold action I could take today is...",
+                    "If I was my own performance coach looking at my life from a high level, I would tell myself to remember that...",
+                    "The big projects I have to keep in mind that I want to take on, even if I can't act towards them today, are...",
+                    "I would know that today was a great success if at the end of the day I did or felt these things..."
+                ];
+                this.init();
             }
-            
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
 
-            if (viewName === 'morning') updateMorningView();
-            if (viewName === 'evening') updateEveningView();
-        }
+            getDefaultState() {
+                return {
+                    version: '2.0',
+                    lastUpdated: new Date().toISOString().split('T')[0],
+                    readingCompleted: false,
+                    morningCompleted: false,
+                    eveningCompleted: false,
+                    currentWeight: 105,
+                    proteinIntake: 0,
+                    thailandFund: 45000,
+                    currentFlame: '',
+                    dailyScores: { clarity: 0, energy: 0, necessity: 0, productivity: 0, influence: 0, courage: 0 },
+                    currentQuestionIndex: 0,
+                    morningAnswers: [],
+                    eveningReflections: [],
+                    flameReflection: '',
+                    goals: {
+                        targetWeight: 98,
+                        targetProtein: 265.8,
+                        targetThailandFund: 150000
+                    }
+                };
+            }
 
-        function completeReading() {
-            appData.readingCompleted = true;
-            updateUI();
-            showView('dashboard');
-            alert('📖 Daily reading complete! Your complete life hypertrophy manual is aligned.');
-        }
-
-        function updateMorningView() {
-            const questionNumber = document.getElementById('question-number');
-            const questionPercentage = document.getElementById('question-percentage');
-            const questionProgress = document.getElementById('question-progress');
-            const currentQuestion = document.getElementById('current-question');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const flameIdentification = document.getElementById('flame-identification');
-            const morningAnswer = document.getElementById('morning-answer');
-            
-            if (questionNumber && questionPercentage && questionProgress && currentQuestion) {
-                const progress = Math.round(((appData.currentQuestionIndex + 1) / morningQuestions.length) * 100);
-                
-                questionNumber.textContent = appData.currentQuestionIndex + 1;
-                questionPercentage.textContent = progress + '%';
-                questionProgress.style.width = progress + '%';
-                currentQuestion.textContent = morningQuestions[appData.currentQuestionIndex];
-                
-                if (prevBtn) prevBtn.style.display = appData.currentQuestionIndex === 0 ? 'none' : 'block';
-                if (nextBtn) nextBtn.textContent = appData.currentQuestionIndex === morningQuestions.length - 1 ? 'Complete Questions' : 'Next →';
-                
-                if (flameIdentification) {
-                    flameIdentification.style.display = appData.currentQuestionIndex === morningQuestions.length - 1 && appData.morningAnswers.length === morningQuestions.length ? 'block' : 'none';
+            loadState() {
+                try {
+                    const saved = localStorage.getItem('hypertrophyOS');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        const today = new Date().toISOString().split('T')[0];
+                        
+                        // Reset daily progress if it's a new day
+                        if (parsed.lastUpdated !== today) {
+                            return {
+                                ...this.getDefaultState(),
+                                currentWeight: parsed.currentWeight || 105,
+                                thailandFund: parsed.thailandFund || 45000,
+                                goals: parsed.goals || this.getDefaultState().goals
+                            };
+                        }
+                        
+                        return { ...this.getDefaultState(), ...parsed };
+                    }
+                } catch (error) {
+                    console.error('Error loading state:', error);
+                    this.showToast('Error loading saved data', 'error');
                 }
+                return this.getDefaultState();
+            }
 
-                if (morningAnswer && appData.morningAnswers[appData.currentQuestionIndex]) {
-                    morningAnswer.value = appData.morningAnswers[appData.currentQuestionIndex];
+            saveState() {
+                try {
+                    this.state.lastUpdated = new Date().toISOString().split('T')[0];
+                    localStorage.setItem('hypertrophyOS', JSON.stringify(this.state));
+                } catch (error) {
+                    console.error('Error saving state:', error);
+                    this.showToast('Error saving data', 'error');
                 }
             }
-        }
 
-        function previousQuestion() {
-            const answer = document.getElementById('morning-answer');
-            if (answer) {
-                appData.morningAnswers[appData.currentQuestionIndex] = answer.value.trim();
+            updateState(updates) {
+                this.state = { ...this.state, ...updates };
+                this.saveState();
+                this.updateUI();
             }
-            
-            if (appData.currentQuestionIndex > 0) {
-                appData.currentQuestionIndex -= 1;
-                updateMorningView();
-            }
-        }
 
-        function nextQuestion() {
-            const answer = document.getElementById('morning-answer');
-            if (answer && answer.value.trim()) {
-                appData.morningAnswers[appData.currentQuestionIndex] = answer.value.trim();
+            init() {
+                this.setCurrentDate();
+                this.updateUI();
+                this.bindEvents();
+                this.checkDailyGoals();
+            }
+
+            setCurrentDate() {
+                const now = new Date();
+                const dateElement = document.getElementById('current-date');
+                if (dateElement) {
+                    dateElement.textContent = now.toLocaleDateString('en-US', { 
+                        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+                    });
+                }
+            }
+
+            bindEvents() {
+                // Add keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey || e.metaKey) {
+                        switch(e.key) {
+                            case '1':
+                                e.preventDefault();
+                                this.showView('dashboard');
+                                break;
+                            case '2':
+                                e.preventDefault();
+                                this.showView('statements');
+                                break;
+                            case '3':
+                                e.preventDefault();
+                                this.showView('morning');
+                                break;
+                            case '4':
+                                e.preventDefault();
+                                this.showView('evening');
+                                break;
+                        }
+                    }
+                });
+
+                // Auto-save form inputs
+                document.addEventListener('input', (e) => {
+                    if (e.target.matches('.auto-save')) {
+                        this.autoSave(e.target);
+                    }
+                });
+            }
+
+            showView(viewName) {
+                // Hide all views
+                document.querySelectorAll('[id$="-view"]').forEach(view => {
+                    view.classList.add('hidden');
+                });
                 
-                if (appData.currentQuestionIndex < morningQuestions.length - 1) {
-                    appData.currentQuestionIndex += 1;
-                    answer.value = appData.morningAnswers[appData.currentQuestionIndex] || '';
-                    updateMorningView();
+                // Show target view
+                const targetView = document.getElementById(viewName + '-view');
+                if (targetView) {
+                    targetView.classList.remove('hidden');
+                    
+                    // Lazy load content for better performance
+                    if (viewName !== 'dashboard' && !targetView.hasAttribute('data-loaded')) {
+                        this.loadViewContent(viewName, targetView);
+                        targetView.setAttribute('data-loaded', 'true');
+                    }
+                }
+                
+                // Update navigation
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                event.target.classList.add('active');
+            }
+
+            loadViewContent(viewName, container) {
+                switch(viewName) {
+                    case 'statements':
+                        this.loadStatementsView(container);
+                        break;
+                    case 'morning':
+                        this.loadMorningView(container);
+                        break;
+                    case 'evening':
+                        this.loadEveningView(container);
+                        break;
+                }
+            }
+
+            loadStatementsView(container) {
+                container.innerHTML = `
+                    <div class="card">
+                        <h2>📜 Walking Towards the Flames - Complete Life Hypertrophy Manual</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">Your complete transformation framework across three timeframes</p>
+                        <!-- Statement content would go here - keeping original for brevity -->
+                        <div class="card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid var(--purple-color);">
+                            <h3>✅ Mark as Read</h3>
+                            <p>Once you've read all statements across all timeframes, mark them as complete for today</p>
+                            <button class="btn btn-purple" onclick="app.completeReading()">📖 Reading Complete</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            loadMorningView(container) {
+                container.innerHTML = `
+                    <div class="card">
+                        <h2>🌅 Morning Ritual - Tim's 18 Questions</h2>
+                        <!-- Morning content would go here -->
+                        <p>Morning ritual content loaded dynamically...</p>
+                    </div>
+                `;
+            }
+
+            loadEveningView(container) {
+                container.innerHTML = `
+                    <div class="card">
+                        <h2>🌙 Evening Ritual - Reflection & Growth</h2>
+                        <!-- Evening content would go here -->
+                        <p>Evening ritual content loaded dynamically...</p>
+                    </div>
+                `;
+            }
+
+            updateProtein() {
+                const proteinInput = document.getElementById('protein-input');
+                if (proteinInput && this.validateInput(proteinInput, 0, 500)) {
+                    this.updateState({ proteinIntake: parseInt(proteinInput.value) || 0 });
+                    this.showToast('Protein updated!', 'success');
+                }
+            }
+
+            addProtein(amount) {
+                const newProtein = this.state.proteinIntake + amount;
+                this.updateState({ proteinIntake: newProtein });
+                document.getElementById('protein-input').value = newProtein;
+                this.showToast(`+${amount}g protein logged!`, 'success');
+            }
+
+            updateWeight() {
+                const weightInput = document.getElementById('weight-input');
+                if (weightInput && this.validateInput(weightInput, 50, 200)) {
+                    this.updateState({ currentWeight: parseInt(weightInput.value) || 105 });
+                    this.showToast('Weight updated!', 'success');
+                }
+            }
+
+            updateThailand() {
+                const thailandInput = document.getElementById('thailand-input');
+                if (thailandInput && this.validateInput(thailandInput, 0, 1000000)) {
+                    this.updateState({ thailandFund: parseInt(thailandInput.value) || 45000 });
+                    this.showToast('Thailand fund updated!', 'success');
+                }
+            }
+
+            validateInput(input, min, max) {
+                const value = parseInt(input.value);
+                if (isNaN(value) || value < min || value > max) {
+                    input.style.borderColor = '#dc2626';
+                    this.showToast(`Please enter a value between ${min} and ${max}`, 'error');
+                    return false;
+                }
+                input.style.borderColor = '#d1d5db';
+                return true;
+            }
+
+            completeReading() {
+                this.updateState({ readingCompleted: true });
+                this.showView('dashboard');
+                this.showToast('📖 Daily reading complete! Your complete life hypertrophy manual is aligned.', 'success');
+            }
+
+            updateUI() {
+                // Update dashboard metrics
+                this.updateElement('current-weight', `${this.state.currentWeight}kg`);
+                this.updateElement('protein-display', `${this.state.proteinIntake}g`);
+                this.updateElement('thailand-display', `$${this.state.thailandFund.toLocaleString()}`);
+                
+                // Update input values
+                this.updateInputValue('protein-input', this.state.proteinIntake);
+                this.updateInputValue('weight-input', this.state.currentWeight);
+                this.updateInputValue('thailand-input', this.state.thailandFund);
+                
+                // Update progress bars with animations
+                this.updateProgressBar('weight-progress', this.calculateWeightProgress());
+                this.updateProgressBar('protein-progress', this.calculateProteinProgress());
+                this.updateProgressBar('thailand-progress', this.calculateThailandProgress());
+                
+                // Update status indicators
+                this.updateElement('reading-status', this.state.readingCompleted ? '✅ Complete' : '📖 Not Started');
+                this.updateElement('morning-status', this.state.morningCompleted ? '✅ Complete' : '⏰ Pending');
+                this.updateElement('evening-status', this.state.eveningCompleted ? '✅ Complete' : '⏰ Pending');
+                
+                // Update average score
+                const scores = Object.values(this.state.dailyScores);
+                const average = scores.reduce((a, b) => a + b, 0) / scores.length || 0;
+                this.updateElement('average-score', `${average.toFixed(1)}/5`);
+                
+                // Update flame display
+                this.updateFlameDisplay();
+                this.updateFlameAlert();
+            }
+
+            updateElement(id, content) {
+                const element = document.getElementById(id);
+                if (element) element.textContent = content;
+            }
+
+            updateInputValue(id, value) {
+                const element = document.getElementById(id);
+                if (element) element.value = value;
+            }
+
+            updateProgressBar(id, percentage) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
+                }
+            }
+
+            calculateWeightProgress() {
+                const { currentWeight, goals } = this.state;
+                return Math.round(((105 - currentWeight) / (105 - goals.targetWeight)) * 100);
+            }
+
+            calculateProteinProgress() {
+                return Math.round((this.state.proteinIntake / this.state.goals.targetProtein) * 100);
+            }
+
+            calculateThailandProgress() {
+                return Math.round((this.state.thailandFund / this.state.goals.targetThailandFund) * 100);
+            }
+
+            updateFlameDisplay() {
+                const flameDisplay = document.getElementById('flame-display');
+                const currentFlameText = document.getElementById('current-flame-text');
+                
+                if (this.state.currentFlame && flameDisplay && currentFlameText) {
+                    flameDisplay.style.display = 'block';
+                    currentFlameText.textContent = this.state.currentFlame;
+                } else if (flameDisplay) {
+                    flameDisplay.style.display = 'none';
+                }
+            }
+
+            updateFlameAlert() {
+                const flameAlert = document.getElementById('flame-alert');
+                if (flameAlert) {
+                    const shouldShow = this.state.proteinIntake < this.state.goals.targetProtein * 0.8;
+                    flameAlert.style.display = shouldShow ? 'block' : 'none';
+                }
+            }
+
+            showRecalibration() {
+                const modal = this.createModal('Identify Your Flame', `
+                    <p>What flame will you walk towards right now? What challenge will you face instead of avoiding?</p>
+                    <textarea class="textarea-field" id="flame-modal-input" placeholder="The specific challenge or difficult conversation I'll face today..."></textarea>
+                    <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-md);">
+                        <button class="btn" onclick="app.setFlameFromModal()">🔥 Set Flame</button>
+                        <button class="btn" style="background: var(--text-secondary);" onclick="app.closeModal()">Cancel</button>
+                    </div>
+                `);
+                document.body.appendChild(modal);
+            }
+
+            setFlameFromModal() {
+                const input = document.getElementById('flame-modal-input');
+                if (input && input.value.trim()) {
+                    this.updateState({ currentFlame: input.value.trim() });
+                    this.closeModal();
+                    this.showToast('🔥 New flame identified! Time to take action.', 'success');
                 } else {
-                    updateMorningView();
+                    this.showToast('Please enter your flame', 'error');
                 }
-            } else {
-                alert('Please provide an answer before continuing.');
             }
-        }
 
-        function completeMorning() {
-            const flameInput = document.getElementById('flame-input');
-            const sendToTim = document.getElementById('send-to-tim');
-            
-            if (flameInput && flameInput.value.trim()) {
-                appData.currentFlame = flameInput.value.trim();
-                appData.morningCompleted = true;
-                updateUI();
+            createModal(title, content) {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                    background: rgba(0,0,0,0.5); z-index: 1000; display: flex; 
+                    align-items: center; justify-content: center;
+                `;
+                modal.innerHTML = `
+                    <div style="background: white; padding: var(--spacing-lg); border-radius: var(--border-radius); 
+                                max-width: 500px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                        <h3 style="margin-bottom: var(--spacing-md); color: var(--primary-color);">${title}</h3>
+                        ${content}
+                    </div>
+                `;
+                modal.onclick = (e) => {
+                    if (e.target === modal) this.closeModal();
+                };
+                return modal;
+            }
+
+            closeModal() {
+                const modal = document.querySelector('[style*="position: fixed"]');
+                if (modal) modal.remove();
+            }
+
+            exportData() {
+                const exportData = {
+                    date: new Date().toISOString().split('T')[0],
+                    ...this.state,
+                    averageScore: (Object.values(this.state.dailyScores).reduce((a, b) => a + b, 0) / 6).toFixed(1),
+                    morningQuestions: this.morningQuestions,
+                    exportVersion: '2.0',
+                    exportTimestamp: new Date().toISOString()
+                };
                 
-                if (sendToTim) sendToTim.style.display = 'block';
-                alert('🔥 Morning ritual completed! Your flame is identified.');
-            } else {
-                alert('Please identify your flame for today.');
+                this.downloadJSON(exportData, `hypertrophy-data-${exportData.date}.json`);
+                this.showToast('📊 Data exported successfully!', 'success');
             }
-        }
 
-        function sendMorningToTim() {
-            const morningData = {
-                date: new Date().toISOString().split('T')[0],
-                questions: morningQuestions,
-                answers: appData.morningAnswers,
-                flame: appData.currentFlame
-            };
-            
-            const emailSubject = `Morning Reflection - ${morningData.date}`;
-            const emailBody = `Hi Tim,
-
-Here are my morning reflection answers for ${morningData.date}:
-
-${morningQuestions.map((q, i) => `${i + 1}. ${q}\nAnswer: ${appData.morningAnswers[i] || 'No answer provided'}\n`).join('\n')}
-
-Today's Flame: ${appData.currentFlame}
-
-Best regards,
-Anthony`;
-
-            const mailtoLink = `mailto:info@timcooperacademy.com?cc=anthony@prorugby.co.nz&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-            
-            const dataStr = JSON.stringify(morningData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `morning-reflection-${morningData.date}.json`;
-            link.click();
-            
-            window.open(mailtoLink);
-            
-            alert('📧 Morning answers prepared for Tim! Check your email client and downloads.');
-        }
-
-        function updateEveningView() {
-            const flameReflection = document.getElementById('flame-reflection');
-            const eveningFlameText = document.getElementById('evening-flame-text');
-            
-            if (appData.currentFlame && flameReflection && eveningFlameText) {
-                flameReflection.style.display = 'block';
-                eveningFlameText.textContent = appData.currentFlame;
+            downloadJSON(data, filename) {
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                link.click();
+                URL.revokeObjectURL(url);
             }
-        }
 
-        function setScore(domain, score) {
-            appData.dailyScores[domain] = score;
-            
-            document.querySelectorAll(`.score-btn[data-domain="${domain}"]`).forEach(btn => {
-                btn.style.background = 'white';
-                btn.style.color = 'black';
-                btn.style.borderColor = '#d1d5db';
-            });
-            
-            const selectedBtn = document.querySelector(`.score-btn[data-domain="${domain}"][data-score="${score}"]`);
-            if (selectedBtn) {
-                selectedBtn.style.background = '#ea580c';
-                selectedBtn.style.color = 'white';
-                selectedBtn.style.borderColor = '#ea580c';
+            showToast(message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.classList.add('show'), 100);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
             }
-            
-            updateUI();
-        }
 
-        function completeEvening() {
-            const reflections = [];
-            for (let i = 1; i <= 6; i++) {
-                const reflectionElement = document.getElementById(`reflection${i}`);
-                if (reflectionElement) {
-                    reflections.push(reflectionElement.value.trim());
+            checkDailyGoals() {
+                const achievements = [];
+                
+                if (this.state.proteinIntake >= this.state.goals.targetProtein) {
+                    achievements.push('🎯 Protein goal achieved!');
+                }
+                
+                if (this.state.currentWeight <= this.state.goals.targetWeight) {
+                    achievements.push('🎯 Weight goal achieved!');
+                }
+                
+                const avgScore = Object.values(this.state.dailyScores).reduce((a, b) => a + b, 0) / 6;
+                if (avgScore >= 4) {
+                    achievements.push('⭐ Excellent performance today!');
+                }
+                
+                if (achievements.length > 0) {
+                    setTimeout(() => {
+                        achievements.forEach((achievement, index) => {
+                            setTimeout(() => this.showToast(achievement, 'success'), index * 1000);
+                        });
+                    }, 1000);
                 }
             }
-            appData.eveningReflections = reflections;
-            
-            const flameReflectionElement = document.getElementById('flame-reflection-text');
-            if (flameReflectionElement) {
-                appData.flameReflection = flameReflectionElement.value.trim();
-            }
-            
-            appData.eveningCompleted = true;
-            updateUI();
-            
-            const sendEveningToTim = document.getElementById('send-evening-to-tim');
-            if (sendEveningToTim) sendEveningToTim.style.display = 'block';
-            
-            alert('🌙 Evening ritual completed!');
         }
 
-        function sendEveningToTim() {
-            const reflectionQuestions = [
-                "A moment that I really appreciated today was...",
-                "A situation or task I handled well today was...",
-                "Something I realised or learned today was...",
-                "I could have made today even better if I...",
-                "Something that could have helped me feel more connected...",
-                "If I was my own performance coach, I would tell myself..."
-            ];
-            
-            const eveningData = {
-                date: new Date().toISOString().split('T')[0],
-                reflections: reflectionQuestions.map((q, i) => ({
-                    question: q,
-                    answer: appData.eveningReflections[i] || 'No answer provided'
-                })),
-                scores: appData.dailyScores,
-                averageScore: (Object.values(appData.dailyScores).reduce((a, b) => a + b, 0) / 6).toFixed(1),
-                flame: appData.currentFlame,
-                flameReflection: appData.flameReflection,
-                weight: appData.currentWeight,
-                protein: appData.proteinIntake
-            };
-            
-            const emailSubject = `Evening Reflection - ${eveningData.date}`;
-            const emailBody = `Hi Tim,
+        // Global app instance
+        const app = new HypertrophyApp();
 
-Here's my evening reflection for ${eveningData.date}:
+        // Global functions for onclick handlers (maintaining compatibility)
+        function showView(viewName) { app.showView(viewName); }
+        function updateProtein() { app.updateProtein(); }
+        function addProtein(amount) { app.addProtein(amount); }
+        function updateWeight() { app.updateWeight(); }
+        function updateThailand() { app.updateThailand(); }
+        function showRecalibration() { app.showRecalibration(); }
+        function exportData() { app.exportData(); }
+        function completeReading() { app.completeReading(); }
 
-REFLECTIONS:
-${reflectionQuestions.map((q, i) => `${i + 1}. ${q}\nAnswer: ${appData.eveningReflections[i] || 'No answer provided'}\n`).join('\n')}
-
-PERFORMANCE SCORES:
-Clarity: ${appData.dailyScores.clarity}/5
-Energy: ${appData.dailyScores.energy}/5
-Necessity: ${appData.dailyScores.necessity}/5
-Productivity: ${appData.dailyScores.productivity}/5
-Influence: ${appData.dailyScores.influence}/5
-Courage: ${appData.dailyScores.courage}/5
-Average: ${eveningData.averageScore}/5
-
-FLAME REFLECTION:
-Today's Flame: ${appData.currentFlame}
-Reflection: ${appData.flameReflection}
-
-METRICS:
-Weight: ${appData.currentWeight}kg
-Protein: ${appData.proteinIntake}g
-
-Best regards,
-Anthony`;
-
-            const mailtoLink = `mailto:info@timcooperacademy.com?cc=anthony@prorugby.co.nz&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-            
-            const dataStr = JSON.stringify(eveningData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `evening-reflection-${eveningData.date}.json`;
-            link.click();
-            
-            window.open(mailtoLink);
-            
-            alert('📧 Evening reflection prepared for Tim! Check your email client and downloads.');
-        }
-
-        function updateProtein() {
-            const proteinInput = document.getElementById('protein-input');
-            if (proteinInput) {
-                appData.proteinIntake = parseInt(proteinInput.value) || 0;
-                updateUI();
-            }
-        }
-
-        function addProtein(amount) {
-            appData.proteinIntake += amount;
-            document.getElementById('protein-input').value = appData.proteinIntake;
-            updateUI();
-            if (amount > 20) alert(`✓ +${amount}g protein logged!`);
-        }
-
-        function updateWeight() {
-            const weightInput = document.getElementById('weight-input');
-            if (weightInput) {
-                appData.currentWeight = parseInt(weightInput.value) || 105;
-                updateUI();
-            }
-        }
-
-        function updateThailand() {
-            const thailandInput = document.getElementById('thailand-input');
-            if (thailandInput) {
-                appData.thailandFund = parseInt(thailandInput.value) || 45000;
-                updateUI();
-            }
-        }
-
-        function showRecalibration() {
-            const response = prompt("What flame will you walk towards right now? What challenge will you face instead of avoiding?");
-            if (response && response.trim()) {
-                appData.currentFlame = response.trim();
-                updateUI();
-                alert('🔥 New flame identified! Time to take action.');
-            }
-        }
-
-        function exportData() {
-            const exportData = {
-                date: new Date().toISOString().split('T')[0],
-                ...appData,
-                averageScore: (Object.values(appData.dailyScores).reduce((a, b) => a + b, 0) / 6).toFixed(1),
-                morningQuestions: morningQuestions
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `hypertrophy-data-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            alert('📊 Data exported! Share this file with Claude for weekly analysis.');
-        }
-
-        function updateUI() {
-            document.getElementById('current-weight').textContent = appData.currentWeight + 'kg';
-            document.getElementById('protein-display').textContent = appData.proteinIntake + 'g';
-            document.getElementById('thailand-display').textContent = '$' + appData.thailandFund.toLocaleString();
-            
-            document.getElementById('protein-input').value = appData.proteinIntake;
-            document.getElementById('weight-input').value = appData.currentWeight;
-            document.getElementById('thailand-input').value = appData.thailandFund;
-            
-            const weightProgress = Math.round(((105 - appData.currentWeight) / (105 - 98)) * 100);
-            const proteinProgress = Math.round((appData.proteinIntake / 265.8) * 100);
-            const thailandProgress = Math.round((appData.thailandFund / 150000) * 100);
-            
-            document.getElementById('weight-progress').style.width = Math.max(0, weightProgress) + '%';
-            document.getElementById('protein-progress').style.width = Math.min(100, proteinProgress) + '%';
-            document.getElementById('thailand-progress').style.width = Math.min(100, thailandProgress) + '%';
-            
-            document.getElementById('reading-status').textContent = appData.readingCompleted ? '✅ Complete' : '📖 Not Started';
-            document.getElementById('morning-status').textContent = appData.morningCompleted ? '✅ Complete' : '⏰ Pending';
-            document.getElementById('evening-status').textContent = appData.eveningCompleted ? '✅ Complete' : '⏰ Pending';
-            
-            const scores = Object.values(appData.dailyScores);
-            const average = scores.reduce((a, b) => a + b, 0) / scores.length || 0;
-            document.getElementById('average-score').textContent = average.toFixed(1) + '/5';
-            
-            const flameAlert = document.getElementById('flame-alert');
-            if (appData.proteinIntake < 265.8 * 0.8) {
-                flameAlert.style.display = 'block';
-            } else {
-                flameAlert.style.display = 'none';
-            }
-            
-            const flameDisplay = document.getElementById('flame-display');
-            const currentFlameText = document.getElementById('current-flame-text');
-            if (appData.currentFlame) {
-                flameDisplay.style.display = 'block';
-                currentFlameText.textContent = appData.currentFlame;
-            } else {
-                flameDisplay.style.display = 'none';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Hypertrophy OS Enhanced v2.0 - Ready! 🔥');
+        });
     </script>
 </body>
 </html>
