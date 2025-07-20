@@ -9,6 +9,7 @@
                     <button class="btn btn-primary" onclick="exportForClaude()">📥 Download Full Claude Analysis</button>
                     <button class="btn btn-success" onclick="downloadWeeklyReport()">📊 Download Weekly Report</button>
                     <button class="btn btn-primary" onclick="exportForTim()">📥 Download for Tim (Testing)</button>
+                    <button class="btn" onclick="debugDataCheck()" style="background-color: #6b8e23; color: white;">🔍 Debug Data Check</button>
                     <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
                 </div>
 
@@ -1250,11 +1251,19 @@ Money has become what it always should have been - a tool for freedom, impact, a
             });
             
             appData.dailyData[todayKey].eveningQuestions = eveningAnswers;
+            appData.dailyData[todayKey].eveningCompleted = true;
             appData.eveningCompleted = true;
+            
+            // Save performance ratings
+            const performanceData = appData.dailyData[todayKey].performance || {};
+            appData.dailyData[todayKey].performance = performanceData;
             
             saveData();
             
             alert("Evening ritual complete. Reflect, learn, improve. Tomorrow is another chance to exceed your own expectations.");
+            
+            // Update weekly overview after completing evening ritual
+            updateWeeklyOverview();
         }
 
         function completeNightPlanning() {
@@ -1287,7 +1296,9 @@ Money has become what it always should have been - a tool for freedom, impact, a
                 currentWeight: appData.currentWeight,
                 targetWeight: appData.targetWeight,
                 dailyData: appData.dailyData,
-                weeklyData: appData.weeklyData
+                weeklyData: appData.weeklyData,
+                vision: appData.vision,
+                totalDaysTracked: Object.keys(appData.dailyData).length
             };
             
             const dataStr = JSON.stringify(exportData, null, 2);
@@ -1299,7 +1310,9 @@ Money has become what it always should have been - a tool for freedom, impact, a
             link.download = `hypertrophy-os-claude-export-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
             
-            alert("Data exported for Claude analysis. Upload this file to Claude for deep coaching insights and pattern analysis.");
+            URL.revokeObjectURL(url);
+            
+            alert("📊 Full data exported for Claude analysis! Upload this JSON file to Claude for deep coaching insights and pattern analysis.");
         }
 
         function exportForTim() {
@@ -1516,6 +1529,55 @@ Money has become what it always should have been - a tool for freedom, impact, a
                     </div>
                 </div>
             `;
+        }
+
+        // Debug function to check what data is actually saved
+        function debugDataCheck() {
+            const todayKey = new Date().toDateString();
+            const todayData = appData.dailyData[todayKey] || {};
+            
+            let debugInfo = `🔍 DATA DEBUG CHECK\n\n`;
+            debugInfo += `Today's Date Key: ${todayKey}\n`;
+            debugInfo += `Total Days Tracked: ${Object.keys(appData.dailyData).length}\n\n`;
+            
+            debugInfo += `TODAY'S DATA:\n`;
+            debugInfo += `Morning Questions: ${todayData.morningQuestions ? 'YES' : 'NO'}\n`;
+            debugInfo += `Evening Questions: ${todayData.eveningQuestions ? 'YES' : 'NO'}\n`;
+            debugInfo += `Performance Scores: ${todayData.performance ? 'YES' : 'NO'}\n`;
+            debugInfo += `Current Weight: ${todayData.currentWeight || 'Not set'}\n`;
+            debugInfo += `Training Day: ${todayData.trainingDay ? 'YES' : 'NO'}\n`;
+            debugInfo += `Flame Selected: ${todayData.flameSelected ? 'YES' : 'NO'}\n`;
+            
+            debugInfo += `\nFOUNDATION ITEMS:\n`;
+            foundationItems.forEach(item => {
+                debugInfo += `${item.name}: ${todayData[item.key] ? 'COMPLETED' : 'PENDING'}\n`;
+            });
+            
+            if (todayData.performance) {
+                debugInfo += `\nPERFORMANCE SCORES:\n`;
+                performanceDomains.forEach(domain => {
+                    const score = todayData.performance[domain.key];
+                    debugInfo += `${domain.name}: ${score || 'Not scored'}\n`;
+                });
+            }
+            
+            debugInfo += `\nRECENT DAYS:\n`;
+            const recentDays = Object.keys(appData.dailyData).sort().slice(-7);
+            recentDays.forEach(day => {
+                const data = appData.dailyData[day];
+                debugInfo += `${day}: Morning(${data.morningQuestions ? 'Y' : 'N'}) Evening(${data.eveningQuestions ? 'Y' : 'N'})\n`;
+            });
+            
+            // Download debug info
+            const blob = new Blob([debugInfo], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `debug-check-${new Date().toISOString().split('T')[0]}.txt`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert("🔍 Debug info downloaded! This shows what data is actually saved and can help identify any issues.");
         }
 
         function clearAllData() {
