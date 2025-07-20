@@ -278,6 +278,87 @@
             margin-bottom: 20px;
         }
 
+        .vision-section {
+            margin-bottom: 30px;
+        }
+
+        .vision-card {
+            background-color: #f5f1eb;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #6b8e23;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .vision-tabs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .vision-tab {
+            padding: 10px 20px;
+            background-color: #8fbc8f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .vision-tab:hover {
+            background-color: #6b8e23;
+        }
+
+        .vision-tab.active {
+            background-color: #d2691e;
+        }
+
+        .vision-panel {
+            display: none;
+        }
+
+        .vision-panel.active {
+            display: block;
+        }
+
+        .vision-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #d2691e;
+        }
+
+        .vision-content h4 {
+            color: #d2691e;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .vision-display {
+            font-size: 16px;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .vision-edit {
+            display: none;
+        }
+
+        .vision-edit textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #8fbc8f;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -332,6 +413,32 @@
 
         <div class="weight-progress" id="weightProgress">
             Current: 105kg → Target: 98kg | Progress: 0% Complete
+        </div>
+
+        <div class="vision-section">
+            <div class="vision-card" id="visionDisplay">
+                <h3>🎯 YOUR TRANSFORMATION VISION</h3>
+                <div class="vision-tabs">
+                    <button class="vision-tab active" onclick="showVision('3month')">3 Month Intents</button>
+                    <button class="vision-tab" onclick="showVision('12month')">12 Month Goals</button>
+                    <button class="vision-tab" onclick="showVision('3year')">3 Year Vision</button>
+                    <button class="btn btn-primary" onclick="editVision()" style="margin-left: 20px;">Edit Vision</button>
+                </div>
+                <div class="vision-content" id="visionContent">
+                    <div id="vision-3month" class="vision-panel active">
+                        <h4>3 Month Intents (Read Daily)</h4>
+                        <div id="display-3month">Click "Edit Vision" to set your 3-month intents</div>
+                    </div>
+                    <div id="vision-12month" class="vision-panel">
+                        <h4>12 Month Goals</h4>
+                        <div id="display-12month">Click "Edit Vision" to set your 12-month goals</div>
+                    </div>
+                    <div id="vision-3year" class="vision-panel">
+                        <h4>3 Year Transformation Vision</h4>
+                        <div id="display-3year">Click "Edit Vision" to set your 3-year vision</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <nav class="nav-tabs">
@@ -505,7 +612,139 @@
             weeklyData: [],
             currentFlame: null,
             morningCompleted: false,
-            eveningCompleted: false
+            eveningCompleted: false,
+            vision: {
+                threeMonth: `1. Physical Foundation & Energy
+Over the next 3 months, my mission is clear: to reach my ideal weight of 98kg, build lean muscle, live with unstoppable energy. I will optimize my hypertrophy training with intention—training to failure, tracking progress, staying disciplined. My nutrition will fuel performance, recovery, taking my vitality to new levels. More than just physical, I will cultivate a lifestyle that excites me, rediscovering passion through movement, focus, joyful living.
+
+This phase is not about a number—it's about becoming the most energetic, purpose-driven version of myself.
+
+2. Nutrition & Energy Mastery
+Today, I honour my body, feeding it with intention, momentum. Each meal is a reflection of discipline, self-respect, fueling performance, recovery, clarity. I choose foods that elevate my energy, sharpen my focus. Hydration, timing, simplicity guide me—no distractions, no apologies.
+
+My nutrition isn't just habit. It's ritual. It's how I create momentum from within.
+
+Over the next 3 months I will continue to progress, reach 98kg not through restriction but through refinement. My nutrition will be precise, lean, balanced, geared for hypertrophy, vitality. I understand macros, meal timing to fuel my peak performance. It must be implemented alongside my daily living.
+
+This isn't just about food—it's about becoming someone who honors their body as the foundation for everything else.
+
+3. Relationships & Connections
+Over the next 3 months I'll build on my progress. I'll lean deeper into connection based on character. I'll express love freely to those I trust—male or female—because love is clarity, not confusion. My energy will be shared with people who reflect sound moral faithfulness, emotional maturity. There will be no space for ego-driven ties or relationships built on escape.
+
+I choose depth. I'll act from integrity, build trust through quiet consistency over judgement.
+
+Most importantly, I will be present, open, available with my son Cory. I want him to be proud of me, I want him to know I'm proud of him. Our relationship will be built on honesty, openness, mutual respect. I show up as the father I'm now capable of being - not from deficit, but from the strength I've built through my own transformation.
+
+This isn't about being liked—it's about becoming someone worthy of deep, honest love.
+
+4. Mindset & Identity
+Over the next 3 months I continue to train my mindset every day. Journaling, reflection, deliberate thinking help me unravel what's beneath the surface. I don't avoid fear—I sit with it, come at it, walk towards it. My walk towards the flames. Confidence builds with effort, small steps, honest personal accountability. Thinking deeper means I slow down enough to see what matters—discern what doesn't.
+
+This isn't about positive thinking—it's about becoming someone who faces truth and grows stronger from it.
+
+5. Precision Systems & Environmental Integrity
+Over the next 3 months I refine the systems that support my rhythm. My tools, calendar, processes, space are intentional. I remove friction where it slows me down. My desktop, my phone, my bedroom, my food prep—everything reflects order. I keep my workflow lean, my planning clean, my day structured. This isn't obsession. It's ownership.
+
+Every day I wake up knowing what I need to do—not because I memorized it, but because my systems remember for me. I automate freedom.
+
+This isn't about organization—it's about becoming someone whose environment amplifies their best self.
+
+6. Business Liberation & Strategic Lifestyle Design
+Over the next 3 months, I build ProBrands with financial clarity, emotional precision. My systems are clean, scalable. My delivery is seamless, trustworthy. My operations reflect simplicity, strength. Every step matters. No double handling. No confusion. I utilize AI to enhance speed, achieve excellence.
+
+I care deeply, I give generously—but I no longer attach emotionally to clients who don't see the work, the discipline, the heart. I attract customers who value our service, trust our consistency. Our team treats every order with urgency, respect. Our brand becomes known not for price—but for excellence, peace of mind.
+
+Thailand becomes more than relocation—it becomes the rhythm of my new life. This business begins paying for my lifestyle, my clarity, my freedom. I protect energy, elevate others. This is structure and soul.
+
+This isn't about making money—it's about becoming someone whose work funds their freedom and purpose.
+
+7. Financial Freedom & Worthiness
+Over the next 3 months, I walk towards my money flames. Like hypertrophy - low and slow, constantly building, clear, concise, measured. I face my fear of failure by walking towards the flame instead of avoiding financial decisions. I build worthiness by setting concrete targets - trips to Thailand, relocation fund goals, learning to invest for the first time. I balance wealth and ego by staying laser beam focused on my life in Thailand - money as fuel for freedom, not validation.
+
+My financial systems include: Thailand relocation fund with specific targets, learning investment basics and taking first steps, monthly financial reviews, emergency fund building, and tracking every dollar with intention. I'm walking into investing as a complete beginner - no shame, just courage to learn and grow.
+
+This isn't about getting rich quick - it's about building unshakeable financial foundation for my extraordinary life.
+
+This isn't about getting rich—it's about becoming someone worthy of wealth who uses it to create extraordinary impact.`,
+
+                twelveMonth: `1. Physical Transformation
+12 months from now, I will wake up embodying a life where health isn't something I do—it is who I am. My habits will be ingrained, automatic, empowering. Training, eating, sleeping, reflecting with intention. I will cultivate radiant confidence through discipline, self-belief, becoming someone who enters every room with quiet strength. Physically, I will be in the best shape of my life—but more importantly I will be mentally grounded, at peace. This is the year the fruit appears from what I have planted, I start living as my highest self.
+
+2. Nutrition Integration
+12 months from now, my nutrition will be a seamless extension of who I am—automatic, intuitive, consistently aligned. Food will be functional, joyful, tailored to performance, recovery, long-term vitality. I'll eat with awareness, structure, freedom. No mental clutter, no guilt—just alignment. My energy will stay high without crashing, my choices will reflect respect for the body I have sculpted. This is nutrition as identity—not just habit, but lifestyle embodiment.
+
+3. Relationship Mastery
+12 months from now, my circle will be small, intentional, spiritually strong. I'll be surrounded by people who value my presence not for what I offer but for how I live. We'll grow together, speak truth above all, hold space when it's needed. I'll remain open, emotionally expressive, unafraid to say "I love you" when love is earned. Relationships will feel like home—safe, honest, built on values, not image.
+
+My relationship with Cory will be a source of mutual pride. He'll see what transformation looks like when someone refuses to stay stuck. Our conversations will be open, honest, available. I'll be the father he deserves because I've done the work to show up fully - present, grounded, proud of who he is, worthy of his pride in return.
+
+4. Mental Excellence
+In 12 months time, my mindset is structured, intentional. I've rewired how I think, not just what I think. I catch old patterns before they push me off course. I build clarity through reflection, courage through repetition. The deeper I think, the cleaner I act. I trust the process because I see results in how I carry myself, lead.
+
+5. Systems Mastery
+One year from now, my life runs on invisible discipline. My environment is not loud—but it speaks. Every object has a purpose. Every system earns its place. My habits are ingrained through design—not force. People around me feel calm when I walk in, not because I demand it, but because my presence reflects clarity. I no longer sprint through chaos. I move with structure. My energy isn't wasted—I direct it.
+
+6. Business Excellence
+One year from now, ProBrands moves with precision, presence. The company earns loyalty through structure, delivery. Clients refer us because we bring order, remove burden. We lead with clarity, follow through with speed.
+
+My admin team in Thailand handles operations with ease, autonomy. My financial framework supports mobility, protection. NZ tax no longer drains me—I've found the flow. The business funds health, vitality, aligned living. I lead from peace, not pressure.
+
+I no longer hustle. I strategize, simplify. My decisions reflect leadership and love—for myself, my team, the life I'm sculpting.
+
+7. Financial Mastery
+12 months from now, my relationship with money has completely transformed. What started as walking towards flames as a complete investing beginner has become confident financial leadership in my own life. My investment portfolio is established and growing - I understand the fundamentals, have automated systems, and make decisions from knowledge, not fear.
+
+My Thailand relocation fund is fully funded and ready. The move isn't a desperate escape but a strategic choice backed by solid financial planning. My emergency fund provides peace of mind. My monthly financial reviews show consistent growth and progress.
+
+Most importantly, I no longer question my worthiness of wealth. Money flows to me because I've done the inner work - I deserve financial abundance, I handle it responsibly, I use it to create the life I've designed. The old "too small, useless" voices have no power over my financial decisions.
+
+I lead from financial confidence. Cory sees what's possible when someone commits to learning, growing, and walking towards money flames instead of avoiding them. My generosity comes from abundance, not ego. I invest in my health, my relationships, my systems, my business growth without scarcity thinking.
+
+I no longer fear financial failure because I've built antifragile systems. My wealth supports my extraordinary life in Thailand - not as validation, but as freedom to live with intention, energy, and purpose.`,
+
+                threeYear: `1. Physical Mastery & Energetic Leadership
+3 years from now, I will be living in an environment that supports radiant energy—from the meals I prepare to the rhythm of my day. Whether I'm training hard, travelling, or leading others, my energy will remain consistent, magnetic. I'll teach what I live—sharing the philosophy of fueling transformation, not chasing trends. My vitality will be contagious.
+
+2. Nutritional Mastery & Environmental Leadership
+3 years from now, my nutrition will reflect longevity, anti-inflammation, optimized, inspired by movement, purpose. Food will be a celebration, regeneration, alignment. My nutritional choices create momentum that others feel, learn from, aspire to embody.
+
+3. Relationship Leadership
+3 years from now, I'll be known for how I make others feel—safe, seen, uplifted. My relationships will reflect loyalty, emotional leadership, unwavering integrity. Those close to me will know my presence is grounded—no agendas, just truth. I'll lead with humility, listen with compassion, honour people's journeys without needing control. This legacy of connection will be my quiet impact—built not through status but through soul.
+
+The relationship with my son Cory will be the crown jewel of my transformation. He'll know that my self-work wasn't selfish—it was the foundation that allowed me to show up as the father he always deserved. Our bond will be deep, honest, mutually respectful. He'll carry forward the example of what's possible when someone chooses growth over stagnation, courage over comfort.
+
+4. Mental Mastery & Presence
+Over 3 years I've created a mental environment built for depth, discipline. Thoughts are no longer distractions—they are tools. My inner voice is precise, steady, clear. I think deeply, speak clearly, act deliberately. People feel the strength of my mind through my presence.
+
+This is who I am now—I've earned it.
+
+5. Systems Legacy
+Three years from now, I live inside a well-built machine—thoughtful, elegant, powerful. My systems amplify creativity, support emotional clarity, automate success. My space makes me better, my habits compound effortlessly.
+
+I don't hustle—I execute. I don't react—I respond. Discipline isn't loud for me—it's layered into everything I touch. When people step into my life, they feel it: this is someone who lives with built-in precision. I don't need to explain it—they just know.
+
+6. Business Legacy
+Three years from now, ProBrands is a living example of values, execution. Our brand stands for reliability, intention. Our systems amplify growth, reduce stress. Our culture reflects urgency, respect.
+
+I reside in Thailand—not as escape, but as alignment. My real estate portfolio expands with consistency, clarity. My finances are clean. My structure is intentional. My business funds my freedom, future.
+
+I share what I've built. My close friends in New Zealand see the path—not as fantasy, but as blueprint. I offer strategy, support. I give them clarity, options. They follow not because I said so—but because they see how I live, work, feel. This is leadership with vision, humility. Their freedom becomes part of my legacy.
+
+7. Financial Legacy
+Three years from now, I live in complete financial freedom in Thailand - not as someone who got lucky, but as someone who systematically walked towards every money flame and built unshakeable wealth through discipline and learning.
+
+My investment portfolio generates enough passive income to fund my extraordinary life. The man who had never invested before now has financial systems that run like a well-built machine - growing wealth while I sleep, train, build relationships, and live with complete freedom. My real estate investments provide additional streams. My financial education transformed me from beginner to confident wealth builder.
+
+I reside in Thailand not as escape from financial pressure, but as the ultimate expression of financial choice. Every domain of my life is now fully funded - the best nutrition, optimal training environments, incredible experiences with loved ones, systems that truly serve me, business investments that align with purpose rather than desperation.
+
+Most powerfully, I've become living proof that worthiness blocks can be completely healed. The boy who was told he was "too small, useless" now manages significant wealth with wisdom and intention. Cory witnesses what's possible when someone refuses to accept financial limitations.
+
+My wealth creates ripple effects. I support my closest friends' growth, invest in others' extraordinary lives, create opportunities that wouldn't exist without financial abundance. Not from ego or to prove anything - but because I've learned that true wealth is having enough to live extraordinarily and lift others up.
+
+Money has become what it always should have been - a tool for freedom, impact, and love. I've earned my place here through walking towards every flame that stood between me and worthiness.
+
+"I am the architect of my extraordinary life."`
+            }
         };
 
         // Tim's Questions
@@ -638,6 +877,7 @@
             renderEveningQuestions();
             renderPerformanceScoring();
             updateWeightProgress();
+            updateVisionDisplay();
             checkStepPrompts();
             
             // Set interval for time updates and step prompts
@@ -1121,6 +1361,82 @@
             if (saved) {
                 appData = {...appData, ...JSON.parse(saved)};
             }
+        }
+
+        // Vision Management Functions
+        function showVision(timeframe) {
+            // Update tab states
+            document.querySelectorAll('.vision-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update panel states
+            document.querySelectorAll('.vision-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(`vision-${timeframe}`).classList.add('active');
+        }
+
+        function editVision() {
+            // Create edit interface
+            const visionContent = document.getElementById('visionContent');
+            visionContent.innerHTML = `
+                <div class="vision-edit">
+                    <h4>Edit Your Transformation Vision</h4>
+                    
+                    <div class="question-group">
+                        <label class="question-label">3 Month Intents (Read Daily):</label>
+                        <textarea id="edit-3month" placeholder="What will you achieve in the next 3 months? Be specific and measurable...">${appData.vision.threeMonth}</textarea>
+                    </div>
+                    
+                    <div class="question-group">
+                        <label class="question-label">12 Month Goals:</label>
+                        <textarea id="edit-12month" placeholder="Where will you be in 12 months? What will have changed?">${appData.vision.twelveMonth}</textarea>
+                    </div>
+                    
+                    <div class="question-group">
+                        <label class="question-label">3 Year Transformation Vision:</label>
+                        <textarea id="edit-3year" placeholder="Your ultimate transformation. Paint the picture of your new life...">${appData.vision.threeYear}</textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="saveVision()">Save Vision</button>
+                    <button class="btn" onclick="cancelVisionEdit()">Cancel</button>
+                </div>
+            `;
+        }
+
+        function saveVision() {
+            appData.vision.threeMonth = document.getElementById('edit-3month').value;
+            appData.vision.twelveMonth = document.getElementById('edit-12month').value;
+            appData.vision.threeYear = document.getElementById('edit-3year').value;
+            
+            saveData();
+            updateVisionDisplay();
+            
+            alert("🎯 Vision saved! These intents will now drive your daily decisions. Read them every morning to stay connected to your transformation.");
+        }
+
+        function cancelVisionEdit() {
+            updateVisionDisplay();
+        }
+
+        function updateVisionDisplay() {
+            const visionContent = document.getElementById('visionContent');
+            visionContent.innerHTML = `
+                <div id="vision-3month" class="vision-panel active">
+                    <h4>3 Month Intents (Read Daily)</h4>
+                    <div id="display-3month" class="vision-display">${appData.vision.threeMonth || 'Click "Edit Vision" to set your 3-month intents'}</div>
+                </div>
+                <div id="vision-12month" class="vision-panel">
+                    <h4>12 Month Goals</h4>
+                    <div id="display-12month" class="vision-display">${appData.vision.twelveMonth || 'Click "Edit Vision" to set your 12-month goals'}</div>
+                </div>
+                <div id="vision-3year" class="vision-panel">
+                    <h4>3 Year Transformation Vision</h4>
+                    <div id="display-3year" class="vision-display">${appData.vision.threeYear || 'Click "Edit Vision" to set your 3-year vision'}</div>
+                </div>
+            `;
         }
 
         // Initialize the app when page loads
