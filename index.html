@@ -4,14 +4,24 @@
                 <h2>📊 Weekly Analysis Export</h2>
                 <p><strong>Export your data for Claude coaching analysis. Tim integration after testing complete.</strong></p>
                 
-                <div class="export-section">
-                    <h3>Export Options</h3>
-                    <button class="btn btn-primary" onclick="exportForClaude()">📥 Download Full Claude Analysis</button>
-                    <button class="btn btn-success" onclick="downloadWeeklyReport()">📊 Download Weekly Report</button>
-                    <button class="btn btn-primary" onclick="exportForTim()">📥 Download for Tim (Testing)</button>
-                    <button class="btn" onclick="debugDataCheck()" style="background-color: #6b8e23; color: white;">🔍 Debug Data Check</button>
-                    <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
-                </div>
+               <div class="export-section">
+    <h3>Export Options</h3>
+    
+    <!-- Journaling Email Export (NEW) -->
+    <div style="background-color: #d4a5a5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+        <h4 style="margin: 0 0 10px 0; color: white;">📧 Email-Ready Journaling Export</h4>
+        <button class="btn btn-primary" onclick="copyJournalingToClipboard()">📋 Copy to Clipboard</button>
+        <button class="btn btn-primary" onclick="createEmailPreview()">👁️ Preview & Copy</button>
+        <button class="btn btn-success" onclick="downloadJournalingForEmail()">📄 Download Text File</button>
+    </div>
+    
+    <!-- Existing Export Options -->
+    <button class="btn btn-primary" onclick="exportForClaude()">📥 Download Full Claude Analysis</button>
+    <button class="btn btn-success" onclick="downloadWeeklyReport()">📊 Download Weekly Report</button>
+    <button class="btn btn-primary" onclick="exportForTim()">📥 Download for Tim (Testing)</button>
+    <button class="btn" onclick="debugDataCheck()" style="background-color: #6b8e23; color: white;">🔍 Debug Data Check</button>
+    <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
+</div>
 
                 <div class="card">
                     <h3>📊 Current Week Overview</h3>
