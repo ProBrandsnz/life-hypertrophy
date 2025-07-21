@@ -1,42 +1,4 @@
-<!-- Export Tab -->
-        <div id="export" class="tab-content">
-            <div class="card">
-                <h2>📊 Weekly Analysis Export</h2>
-                <p><strong>Export your data for Claude coaching analysis. Tim integration after testing complete.</strong></p>
-                
-               <div class="export-section">
-    <h3>Export Options</h3>
-    
-    <!-- Journaling Email Export (NEW) -->
-    <div style="background-color: #d4a5a5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-        <h4 style="margin: 0 0 10px 0; color: white;">📧 Email-Ready Journaling Export</h4>
-        <button class="btn btn-primary" onclick="copyJournalingToClipboard()">📋 Copy to Clipboard</button>
-        <button class="btn btn-primary" onclick="createEmailPreview()">👁️ Preview & Copy</button>
-        <button class="btn btn-success" onclick="downloadJournalingForEmail()">📄 Download Text File</button>
-    </div>
-    
-    <!-- Existing Export Options -->
-    <button class="btn btn-primary" onclick="exportForClaude()">📥 Download Full Claude Analysis</button>
-    <button class="btn btn-success" onclick="downloadWeeklyReport()">📊 Download Weekly Report</button>
-    <button class="btn btn-primary" onclick="exportForTim()">📥 Download for Tim (Testing)</button>
-    <button class="btn" onclick="debugDataCheck()" style="background-color: #6b8e23; color: white;">🔍 Debug Data Check</button>
-    <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
-</div>
-
-                <div class="card">
-                    <h3>📊 Current Week Overview</h3>
-                    <div id="weeklyOverview"></div>
-                </div>
-
-                <div class="card">
-                    <h3>📋 Export Details</h3>
-                    <p><strong>Full Claude Analysis:</strong> Complete JSON data with all daily entries, performance scores, and patterns for deep coaching analysis.</p>
-                    <p><strong>Weekly Report:</strong> Human-readable summary with insights, completion rates, and recommendations.</p>
-                    <p><strong>Tim Export:</strong> Questions and performance data only (for testing phase).</p>
-                </div>
-            </div>
-        </div>
-                    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -303,6 +265,18 @@
             border-radius: 10px;
             margin-top: 30px;
             text-align: center;
+        }
+
+        .email-export-section {
+            background-color: #d4a5a5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .email-export-section h4 {
+            margin: 0 0 10px 0;
+            color: white;
         }
 
         .weight-progress {
@@ -623,14 +597,34 @@
                 
                 <div class="export-section">
                     <h3>Export Options</h3>
-                    <button class="btn btn-primary" onclick="exportForClaude()">Export for Claude Analysis</button>
-                    <button class="btn btn-primary" onclick="exportForTim()">Export for Tim (Questions Only)</button>
+                    
+                    <!-- NEW EMAIL EXPORT SECTION -->
+                    <div class="email-export-section">
+                        <h4>📧 Email-Ready Journaling Export</h4>
+                        <button class="btn btn-primary" onclick="copyJournalingToClipboard()">📋 Copy to Clipboard</button>
+                        <button class="btn btn-primary" onclick="createEmailPreview()">👁️ Preview & Copy</button>
+                        <button class="btn btn-success" onclick="downloadJournalingForEmail()">📄 Download Text File</button>
+                    </div>
+                    
+                    <!-- EXISTING EXPORT OPTIONS -->
+                    <button class="btn btn-primary" onclick="exportForClaude()">📥 Download Full Claude Analysis</button>
+                    <button class="btn btn-success" onclick="downloadWeeklyReport()">📊 Download Weekly Report</button>
+                    <button class="btn btn-primary" onclick="exportForTim()">📥 Download for Tim (Testing)</button>
+                    <button class="btn" onclick="debugDataCheck()" style="background-color: #6b8e23; color: white;">🔍 Debug Data Check</button>
                     <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
                 </div>
 
                 <div class="card">
-                    <h3>Current Week Overview</h3>
+                    <h3>📊 Current Week Overview</h3>
                     <div id="weeklyOverview"></div>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Export Details</h3>
+                    <p><strong>Email Export:</strong> Clean, formatted text perfect for copying into emails or saving as notes.</p>
+                    <p><strong>Full Claude Analysis:</strong> Complete JSON data with all daily entries, performance scores, and patterns for deep coaching analysis.</p>
+                    <p><strong>Weekly Report:</strong> Human-readable summary with insights, completion rates, and recommendations.</p>
+                    <p><strong>Tim Export:</strong> Questions and performance data only (for testing phase).</p>
                 </div>
             </div>
         </div>
@@ -899,6 +893,133 @@ Money has become what it always should have been - a tool for freedom, impact, a
             sleep: "Your recovery determines your performance tomorrow. Poor sleep = poor decisions = poor results. Prioritize your rest.",
             journaling: "Self-awareness creates self-mastery. Skipping journaling means you're operating blind. How can you improve what you don't track?"
         };
+
+        // NEW EMAIL EXPORT FUNCTIONS
+        function exportJournalingForEmail() {
+            const todayKey = new Date().toDateString();
+            const todayData = appData.dailyData[todayKey] || {};
+            const morningAnswers = todayData.morningQuestions || {};
+            const eveningAnswers = todayData.eveningQuestions || {};
+            
+            let emailContent = `📝 DAILY JOURNALING EXPORT - ${todayKey}\n`;
+            emailContent += `═══════════════════════════════════════════\n\n`;
+            
+            // Morning Questions Section
+            emailContent += `🌅 MORNING RITUAL QUESTIONS\n`;
+            emailContent += `─────────────────────────────\n\n`;
+            
+            morningQuestions.forEach((question, index) => {
+                const answer = morningAnswers[`q${index}`] || '[Not answered]';
+                emailContent += `${index + 1}. ${question}\n`;
+                emailContent += `${answer}\n\n`;
+            });
+            
+            // Evening Questions Section if available
+            if (Object.keys(eveningAnswers).length > 0) {
+                emailContent += `\n🌙 EVENING REFLECTION QUESTIONS\n`;
+                emailContent += `─────────────────────────────────\n\n`;
+                
+                eveningQuestions.forEach((question, index) => {
+                    const answer = eveningAnswers[`q${index}`] || '[Not answered]';
+                    emailContent += `${index + 1}. ${question}\n`;
+                    emailContent += `${answer}\n\n`;
+                });
+            }
+            
+            // Add flame and performance data if available
+            if (todayData.flameSelected) {
+                emailContent += `\n🔥 TODAY'S FLAME CHALLENGE\n`;
+                emailContent += `─────────────────────────\n`;
+                emailContent += `Category: ${todayData.flameSelected.category}\n`;
+                emailContent += `Challenge: ${todayData.flameSelected.statement}\n`;
+                emailContent += `Status: ${todayData.flameSelected.completed ? 'CONQUERED ✅' : 'IN PROGRESS 🔥'}\n\n`;
+            }
+            
+            if (todayData.performance) {
+                emailContent += `\n⚡ PERFORMANCE SCORES (1-5)\n`;
+                emailContent += `──────────────────────────\n`;
+                performanceDomains.forEach(domain => {
+                    const score = todayData.performance[domain.key];
+                    if (score) {
+                        emailContent += `${domain.name}: ${score}/5\n`;
+                    }
+                });
+                emailContent += `\n`;
+            }
+            
+            emailContent += `Generated: ${new Date().toLocaleString('en-NZ')}\n`;
+            emailContent += `"I am the architect of my extraordinary life."\n`;
+            
+            return emailContent;
+        }
+
+        function copyJournalingToClipboard() {
+            const emailContent = exportJournalingForEmail();
+            
+            // Create a temporary textarea to copy content
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = emailContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            
+            alert("📧 Journaling content copied to clipboard! You can now paste this directly into your email.");
+        }
+
+        function downloadJournalingForEmail() {
+            const emailContent = exportJournalingForEmail();
+            
+            const blob = new Blob([emailContent], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `journaling-${new Date().toISOString().split('T')[0]}.txt`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        function createEmailPreview() {
+            const emailContent = exportJournalingForEmail();
+            
+            // Create a modal/popup window to preview the email content
+            const popup = window.open('', 'EmailPreview', 'width=600,height=700,scrollbars=yes');
+            popup.document.write(`
+                <html>
+                <head>
+                    <title>Email Preview - Journaling Export</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5; }
+                        .preview-container { 
+                            background: white; 
+                            padding: 20px; 
+                            border-radius: 8px; 
+                            white-space: pre-line; 
+                            max-width: 100%;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        }
+                        .copy-btn {
+                            background-color: #8fbc8f;
+                            color: white;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            margin-bottom: 20px;
+                        }
+                        .copy-btn:hover { background-color: #6b8e23; }
+                    </style>
+                </head>
+                <body>
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText(document.querySelector('.preview-container').textContent).then(() => alert('Copied to clipboard!'))">Copy to Clipboard</button>
+                    <div class="preview-container">${emailContent}</div>
+                </body>
+                </html>
+            `);
+            popup.document.close();
+        }
 
         // Initialize app
         function initApp() {
